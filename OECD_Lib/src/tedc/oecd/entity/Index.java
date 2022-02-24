@@ -7,12 +7,13 @@ public class Index {
 	private String tableCode;
 	private String description;
 	private String originalName;
-	private String frequency;
+	private TimeRange timeRange;
 	private String unit;
 	private String country;
 	private String countryCode;
 	private String subject;
 	private String reference;
+	public static final int pageLimit = 20;
 	
 	public String getBank() {
 		return bank;
@@ -50,11 +51,11 @@ public class Index {
 	public void setOriginalName(String originalName) {
 		this.originalName = originalName;
 	}
-	public String getFrequency() {
-		return frequency;
+	public TimeRange getTimeRange() {
+		return timeRange;
 	}
-	public void setFrequency(String frequency) {
-		this.frequency = frequency;
+	public void setTimeRange(TimeRange timeRange) {
+		this.timeRange = timeRange;
 	}
 	public String getUnit() {
 		return unit;
