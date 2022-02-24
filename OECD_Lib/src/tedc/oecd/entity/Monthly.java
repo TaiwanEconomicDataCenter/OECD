@@ -3,6 +3,8 @@ package tedc.oecd.entity;
 import java.time.YearMonth;
 import java.time.format.DateTimeParseException;
 
+import tedc.oecd.exception.DataInvalidException;
+
 public class Monthly extends TimeRange {
 	private YearMonth startTime;
 	private YearMonth endTime;
@@ -27,18 +29,18 @@ public class Monthly extends TimeRange {
 		if(checkMonth(startTime)) {
 			this.startTime = YearMonth.parse(startTime);
 		}else {
-			throw new RuntimeException("月資料格式不正確!");
+			throw new DataInvalidException("月資料格式不正確!");
 		}
 	}
 
 	public void setEndTime(YearMonth endTime) {
 		this.endTime = endTime;
 	}
-	public void setEndTime(String endTime) {
+	public void setEndTime(String endTime){
 		if(checkMonth(endTime)) {
 			this.endTime = YearMonth.parse(endTime);
 		}else {
-			throw new RuntimeException("月資料格式不正確!");
+			throw new DataInvalidException("月資料格式不正確!");
 		}
 	}
 	

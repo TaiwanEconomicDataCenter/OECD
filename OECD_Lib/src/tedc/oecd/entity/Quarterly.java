@@ -4,6 +4,8 @@ import java.time.format.DateTimeParseException;
 
 import org.threeten.extra.YearQuarter;
 
+import tedc.oecd.exception.DataInvalidException;
+
 public class Quarterly extends TimeRange {
 	private YearQuarter startTime;
 	private YearQuarter endTime;
@@ -29,7 +31,7 @@ public class Quarterly extends TimeRange {
 		if(checkQuarter(startTime)) {
 			this.startTime = YearQuarter.parse(startTime);
 		}else {
-			throw new RuntimeException("季資料格式不正確!");
+			throw new DataInvalidException("季資料格式不正確!");
 		}
 	}
 
@@ -40,7 +42,7 @@ public class Quarterly extends TimeRange {
 		if(checkQuarter(endTime)) {
 			this.endTime = YearQuarter.parse(endTime);
 		}else {
-			throw new RuntimeException("季資料格式不正確!");
+			throw new DataInvalidException("季資料格式不正確!");
 		}
 	}
 	
