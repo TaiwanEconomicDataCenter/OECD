@@ -11,6 +11,6 @@ public abstract class TimeRange {
 		this.freq = freq;
 	}
 	
-	public abstract String getStartTime();
-	public abstract String getEndTime();
+	public abstract String getStartTimeString();
+	public abstract String getEndTimeString();
 }

@@ -1,6 +1,5 @@
 package tedc.oecd.entity;
 
-import java.time.Year;
 import java.time.format.DateTimeParseException;
 
 import org.threeten.extra.YearQuarter;
@@ -8,6 +7,20 @@ import org.threeten.extra.YearQuarter;
 public class Quarterly extends TimeRange {
 	private YearQuarter startTime;
 	private YearQuarter endTime;
+	
+
+	public Quarterly() {
+		super();
+		this.setFreq(Frequency.Q);
+	}
+	
+	public YearQuarter getStartTime() {
+		return startTime;
+	}
+
+	public YearQuarter getEndTime() {
+		return endTime;
+	}
 
 	public void setStartTime(YearQuarter startTime) {
 		this.startTime = startTime;
@@ -33,7 +46,7 @@ public class Quarterly extends TimeRange {
 	
 	public boolean checkQuarter(String time) {
 		try {
-			YearQuarter yq = YearQuarter.parse(time);
+			YearQuarter.parse(time);
 		}catch(DateTimeParseException e) {
 			return false;
 		}
@@ -42,12 +55,12 @@ public class Quarterly extends TimeRange {
 	}
 
 	@Override
-	public String getStartTime() {
+	public String getStartTimeString() {
 		return this.startTime.toString();
 	}
 
 	@Override
-	public String getEndTime() {
+	public String getEndTimeString() {
 		return this.endTime.toString();
 	}
 

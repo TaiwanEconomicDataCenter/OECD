@@ -1,6 +1,8 @@
 package tedc.oecd.entity;
 
+import java.time.DateTimeException;
 import java.time.Year;
+import java.time.format.DateTimeParseException;
 
 public class Annual extends TimeRange {
 	private Year startTime;
@@ -11,12 +13,27 @@ public class Annual extends TimeRange {
 		this.setFreq(Frequency.A);
 	}
 
+	public Year getStartTime() {
+		return startTime;
+	}
+
+	public Year getEndTime() {
+		return endTime;
+	}
+
 	public void setStartTime(Year startTime) {
 		this.startTime = startTime;
 	}
 	public void setStartTime(String startTime) {
 		if(checkYear(startTime)) {
-			this.startTime = Year.of(Integer.valueOf(startTime));
+			this.startTime = Year.parse(startTime);
+		}else {
+			throw new RuntimeException("年資料格式不正確!");
+		}
+	}
+	public void setStartTime(int startTime) {
+		if(checkYear(startTime)) {
+			this.startTime = Year.of(startTime);
 		}else {
 			throw new RuntimeException("年資料格式不正確!");
 		}
@@ -27,7 +44,14 @@ public class Annual extends TimeRange {
 	}
 	public void setEndTime(String endTime) {
 		if(checkYear(endTime)) {
-			this.endTime = Year.of(Integer.valueOf(endTime));
+			this.endTime = Year.parse(endTime);
+		}else {
+			throw new RuntimeException("年資料格式不正確!");
+		}
+	}
+	public void setEndTime(int endTime) {
+		if(checkYear(endTime)) {
+			this.endTime = Year.of(endTime);
 		}else {
 			throw new RuntimeException("年資料格式不正確!");
 		}
@@ -35,8 +59,17 @@ public class Annual extends TimeRange {
 	
 	public boolean checkYear(String time) {
 		try {
-			Integer year = Integer.valueOf(time);
-		}catch(NumberFormatException e) {
+			Year.parse(time);
+		}catch(DateTimeParseException e) {
+			return false;
+		}
+		
+		return true;
+	}
+	public boolean checkYear(int time) {
+		try {
+			Year.of(time);
+		}catch(DateTimeException e) {
 			return false;
 		}
 		
@@ -44,12 +77,12 @@ public class Annual extends TimeRange {
 	}
 
 	@Override
-	public String getStartTime() {
+	public String getStartTimeString() {
 		return this.startTime.toString();
 	}
 
 	@Override
-	public String getEndTime() {
+	public String getEndTimeString() {
 		return this.endTime.toString();
 	}
 
