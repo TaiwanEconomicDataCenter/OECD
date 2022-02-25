@@ -111,6 +111,13 @@ public class Index {
 			return false;
 		return true;
 	}
+	@Override
+	public String toString() {
+		return "Index [\nbank=" + bank + ", \nname=" + name + ", \ntableName=" + tableName + ", \ntableCode=" + tableCode
+				+ ", \ndescription=" + description + ", \noriginalName=" + originalName + ", \ntimeRange=" + timeRange
+				+ ", \nunit=" + unit + ", \ncountry=" + country + ", \ncountryCode=" + countryCode + ", \nsubject=" + subject
+				+ ", \nreference=" + reference + "\n]";
+	}
 	
 }
 

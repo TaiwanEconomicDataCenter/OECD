@@ -16,21 +16,31 @@ import tedc.oecd.entity.TimeRange;
 import tedc.oecd.exception.TEDCException;
 
 class IndexDAO {
-	private static final String SELECT_INDEX_BY_PAGE=
+	private static final String SELECT_QNIA_INDEX_BY_PAGE=
 			"SELECT databank, name, db_table, db_code, desc_e, desc_c, freq, start, last, unit, name_ord, snl, book, form_e, form_c "
-			+ " FROM ?_key "
+			+ " FROM qnia_key "
+			+ " LIMIT ?,?";
+	private static final String SELECT_MEI_INDEX_BY_PAGE=
+			"SELECT databank, name, db_table, db_code, desc_e, desc_c, freq, start, last, unit, name_ord, snl, book, form_e, form_c "
+			+ " FROM mei_key "
 			+ " LIMIT ?,?";
 	static List<Index> selectIndexByPage(String bank, int page, int limit) throws TEDCException{
 		List<Index> list = new ArrayList<>();
+		String SELECT_INDEX = null;
+		if(bank!=null && bank.trim().toLowerCase().equals("qnia")) {
+			SELECT_INDEX = SELECT_QNIA_INDEX_BY_PAGE;
+		}else if(bank!=null && bank.trim().toLowerCase().equals("mei")) {
+			SELECT_INDEX = SELECT_MEI_INDEX_BY_PAGE;
+		}else throw new IllegalArgumentException("找不到名稱為"+bank+"的bank!");
 		
 		try(
 				Connection connection = RDBConnection.getConnection(bank); //1,2 取得連線
-				PreparedStatement pstmt = connection.prepareStatement(SELECT_INDEX_BY_PAGE); //3.準備指令
+				PreparedStatement pstmt = connection.prepareStatement(SELECT_INDEX); //3.準備指令
+				
 		){
 			//3.1 傳入?的值
-			pstmt.setString(1, bank);
-			pstmt.setInt(2, (page-1)*limit);
-			pstmt.setInt(3, limit);
+			pstmt.setInt(1, (page-1)*limit);
+			pstmt.setInt(2, limit);
 			try(
 					ResultSet rs = pstmt.executeQuery(); //4.執行指令	
 			){
@@ -59,6 +69,7 @@ class IndexDAO {
 						((Monthly)range).setStartTime(rs.getString("start"));
 						((Monthly)range).setEndTime(rs.getString("last"));
 					}
+					index.setTimeRange(range);
 					index.setUnit(rs.getString("unit"));
 					index.setCountry(rs.getString("book"));
 					index.setCountryCode(rs.getString("name_ord"));

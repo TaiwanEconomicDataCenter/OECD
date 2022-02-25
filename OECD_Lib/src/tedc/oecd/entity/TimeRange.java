@@ -13,4 +13,15 @@ public abstract class TimeRange {
 	
 	public abstract String getStartTimeString();
 	public abstract String getEndTimeString();
+
+	@Override
+	public String toString() {
+		return "TimeRange [\n"
+				+ "freq=" + freq + ", \n"
+				+ "getStartTimeString()=" + getStartTimeString() + ", \n"
+				+ "getEndTimeString()="
+				+ getEndTimeString() 
+				+ "\n]";
+	}
+	
 }
