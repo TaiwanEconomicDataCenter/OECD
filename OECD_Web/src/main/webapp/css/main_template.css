@@ -334,9 +334,6 @@ td.desc p:last-of-type{margin-bottom: 5px;}
 	border-radius: 50%;
 }
 @media screen and (max-width: 1022px){
-	header{
-		position: static;
-	}
 	main{
 		flex-direction: column;
 	}

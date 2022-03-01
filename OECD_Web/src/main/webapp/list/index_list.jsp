@@ -6,16 +6,21 @@
 <%
 	String bank = request.getParameter("bank");
 	String pageStr = request.getParameter("page");
+	String displayStr = request.getParameter("display");
 	int pageNum = 1;
 	if(pageStr!=null && pageStr.matches("\\d+")){
 		pageNum = Integer.parseInt(pageStr);
+	}
+	int display = Index.pageLimit;
+	if(displayStr!=null && displayStr.matches("\\d+")){
+		display = Integer.parseInt(displayStr);
 	}
 	List<Index> list = null;
 	int count = 0;
 	IndexService iService = new IndexService();
 	if(bank!=null){
 		bank = bank.trim();
-		list = iService.getIndexByPage(bank, pageNum, Index.pageLimit);
+		list = iService.getIndexByPage(bank, pageNum, display);
 		count = iService.getTotalCounts(bank);
 	}
 %>
@@ -72,7 +77,7 @@
 					<%if(list==null || list.size()<=0){ %>
 						<p class="error">查無資料</p>
 					<%}else{
-						int pageTotal = (int)Math.ceil(count*1D/Index.pageLimit);%>
+						int pageTotal = (int)Math.ceil(count*1D/display);%>
 						<ul class="pages">
 							<li><a href="<%=request.getRequestURI() %>?bank=<%=bank%>&page=1">第一頁</a></li>
 							<li><a href="<%=(pageNum-1>0)?request.getRequestURI()+"?bank="+bank+"&page="+(pageNum-1):""%>">上一頁</a></li>
