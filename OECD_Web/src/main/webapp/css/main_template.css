@@ -7,6 +7,7 @@ a:hover{text-decoration:underline;opacity: 0.5;}
 h1.title{font-size: 1.8em;}
 h1{margin: 5px 0;color: blue;}
 h2{color: #800000;}
+p.error{text-align: center;}
 body{
 	margin: 0px;
 	position: relative;
@@ -104,10 +105,23 @@ footer section{
 }
 main {
 	min-height: 70vh;
-	margin: 80px 0 0 0;
 	padding: 0px;
 	display: flex;
 	flex-direction: row;
+}
+main.index, nav.bank{
+	margin: 80px 0 0 0;
+}
+nav.bank{
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+}
+nav.bank>p:first-of-type{
+	margin-bottom: 0;
+}
+nav.bank>p:last-of-type{
+	margin-top: 0;
 }
 main > aside {
 	flex-grow: 1;
@@ -140,12 +154,16 @@ div.main{
 	display: flex;
 	justify-content: space-between;
 }
-div.link{
+div.link, div.search{
 	width: 300px;
 	background: #FFC;
 	display: flex;
 	flex-direction: column;
 	align-items: center;
+}
+div.search{
+	width: 200px;
+	background: white;
 }
 div.link p{
 	font-size: 1.2em;
@@ -186,12 +204,98 @@ div.link ul li a p.name{
 div.link ul li a p.desc{
 	font-size: 0.9em;
 }
-div.description{
+div.search p{
+	font-size: 1.2em;
+}
+div.search>p:first-of-type{
+	margin-bottom: 0;
+}
+div.search>p:last-of-type{
+	margin-top: 0;
+}
+table.search{
+	width: 90%;
+	border: 2px solid black;
+}
+table.search thead tr td{
+	text-align: center;
+}
+table.search tbody tr td{
+	text-align: center;
+	border: 2px solid black;
+}
+table.search tbody tr:nth-child(2n){
+	background-color: rgb(255, 255, 224);
+}
+div.description, div.result{
 	width: 700px;
 	background: #DDFFDF;
 	margin-left: 10px;
 	padding: 10px;
 }
+div.result{
+	background: white;
+	display: flex;
+	flex-direction: column;
+}
+div.keyword{
+	height: 30px;
+	display: flex;
+}
+input#search{
+	width: 30px;
+	height: 100%;
+	border: 2px solid black;
+	padding: 0;
+	background-image: url("/oecd/images/search.png");
+	background-position: center center;
+	background-size: cover;
+}
+input.keyword{
+	width: 95%;
+	height: 100%;
+	padding: 0;
+	margin-right: 2px;
+}
+ul.pages{
+	display: flex;
+	justify-content: flex-end;
+}
+ul.pages>li{
+	width: 70px;
+	text-align: center;
+}
+ul.pages>li:nth-child(1n+3):nth-last-child(1n+3){
+	width: 40px;
+}
+table.result{
+	border: 2px solid black;
+	font-size: 0.8em;
+}
+table.result thead tr td, table.result tbody tr td{
+	border: 2px solid black;
+}
+table.result thead{
+	background-color: rgb(210, 221, 200);
+	text-align: center;
+}
+td.slim{
+	width: 15px;
+}
+td.quarterly{
+	background-color: rgb(224, 255, 255);
+}
+td.monthly{
+	background-color: rgb(255, 255, 224);
+}
+td.checkbox{
+	background-color: rgb(226, 237, 227);
+}
+td.desc p{
+	margin: 0;
+}
+td.desc p:first-of-type{margin-top: 5px;}
+td.desc p:last-of-type{margin-bottom: 5px;}
 .whiteBack>a, .blueBack>a{
 	border: 3px solid #8bc9e1;
 	border-radius: 60px;
@@ -221,10 +325,7 @@ div.description{
 	cursor: pointer;
 	width: 50px;
 	height: 50px;
-	/*text-align: center;
-	display: flex;
-	align-items: center;
-	justify-content: center;*/
+	display: none;
 }
 #top a{
 	width: 45px;

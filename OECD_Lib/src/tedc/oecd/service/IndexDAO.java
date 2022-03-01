@@ -17,13 +17,9 @@ import tedc.oecd.exception.TEDCException;
 
 class IndexDAO {
 	private static final String SELECT_QNIA_INDEX_BY_PAGE=
-			"SELECT databank, name, db_table, db_code, desc_e, desc_c, freq, start, last, unit, name_ord, snl, book, form_e, form_c "
-			+ " FROM qnia_key "
-			+ " LIMIT ?,?";
+			"SELECT * FROM qnia_info LIMIT ?,?";
 	private static final String SELECT_MEI_INDEX_BY_PAGE=
-			"SELECT databank, name, db_table, db_code, desc_e, desc_c, freq, start, last, unit, name_ord, snl, book, form_e, form_c "
-			+ " FROM mei_key "
-			+ " LIMIT ?,?";
+			"SELECT * FROM mei_info LIMIT ?,?";
 	static List<Index> selectIndexByPage(String bank, int page, int limit) throws TEDCException{
 		List<Index> list = new ArrayList<>();
 		String SELECT_INDEX = null;
@@ -85,5 +81,33 @@ class IndexDAO {
 		}
 		
 		return list;
+	}
+	private static final String SELECT_QNIA_INDEX_COUNT=
+			"SELECT * FROM qnia_count ";
+	private static final String SELECT_MEI_INDEX_COUNT=
+			"SELECT * FROM mei_count ";
+	static int selectIndexCount(String bank) throws TEDCException{
+		int result=0;
+		String SELECT_INDEX = null;
+		if(bank!=null && bank.trim().toLowerCase().equals("qnia")) {
+			SELECT_INDEX = SELECT_QNIA_INDEX_COUNT;
+		}else if(bank!=null && bank.trim().toLowerCase().equals("mei")) {
+			SELECT_INDEX = SELECT_MEI_INDEX_COUNT;
+		}else throw new IllegalArgumentException("找不到名稱為"+bank+"的bank!");
+		
+		try(
+				Connection connection = RDBConnection.getConnection(bank); //1,2 取得連線
+				PreparedStatement pstmt = connection.prepareStatement(SELECT_INDEX); //3.準備指令
+				ResultSet rs = pstmt.executeQuery(); //4.執行指令
+				
+		){
+			while(rs.next()) {
+				result = rs.getInt("size");
+			}
+		}catch (SQLException e) {
+			throw new TEDCException("[查詢總筆數]失敗", e);
+		}
+		
+		return result;
 	}
 }

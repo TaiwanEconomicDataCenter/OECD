@@ -8,6 +8,7 @@ import tedc.oecd.entity.TimeRange;
 public class TestTimeRange {
 
 	public static void main(String[] args) {
+		//System.out.println((int)Math.ceil(48.1/2));
 		String annual = "2022";
 		int annualI = 2022;
 		String quarter = "2022-Q1";
