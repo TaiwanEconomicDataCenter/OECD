@@ -1,9 +1,12 @@
 @font-face{
 	font-family: mainFont;
-	src:url("/oecd/fonts/NotoSansTC-Medium.otf");
+	src:url("/oecd/fonts/NotoSansTC-Regular.otf");
 }
 a{text-decoration:none; color: black;}
 a:hover{text-decoration:underline;opacity: 0.5;}
+h1.title{font-size: 1.8em;}
+h1{margin: 5px 0;color: blue;}
+h2{color: #800000;}
 body{
 	margin: 0px;
 	position: relative;
@@ -32,6 +35,7 @@ li{
 }
 #home{
 	width: 30%;
+	min-width: 400px;
 	margin: 0;
 	display: flex;
 	flex-direction: row;
@@ -40,13 +44,15 @@ li{
 	padding-left: 10px;
 }
 #logo{
-	height: 60%;
+	width: 80%;
+	min-height: 60%;
 	display: flex;
 	flex-direction: row;
 	align-items: center;
 	justify-content: center; 
 }
 #logoImg{
+	width: 100%;
 	height: 100%;
 	transform-origin: center left;
 }
@@ -58,6 +64,8 @@ li{
 }
 #mainMenu{
 	width: 50%;
+	min-width: 400px;
+	min-height: 40%;
 	display: flex;
 	flex-direction: row;
 	align-items: center;
@@ -83,7 +91,7 @@ li{
 }
 footer{
 	background-color: #EBEBEB;
-	height: 400px;
+	height: 250px;
 	display: flex;
 	flex-direction: row;
 	justify-content: center;
@@ -96,7 +104,7 @@ footer section{
 }
 main {
 	min-height: 70vh;
-	margin: 0px;
+	margin: 80px 0 0 0;
 	padding: 0px;
 	display: flex;
 	flex-direction: row;
@@ -105,12 +113,84 @@ main > aside {
 	flex-grow: 1;
 }
 main > section {
-	flex-grow: 3;
+	flex-grow: 1;
+	max-width: 1024px;
 	display: flex;
 	flex-direction: column;
 	align-items: center;
 	padding-left: 10px;
 	padding-right: 10px;
+}
+nav, div.main{
+	width: 100%;
+	background: white;
+}
+div.title{
+	width: 100%;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+}
+div.time{
+	display: flex;
+	align-items: center;
+	justify-content: flex-end;
+}
+div.main{
+	display: flex;
+	justify-content: space-between;
+}
+div.link{
+	width: 300px;
+	background: #FFC;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+}
+div.link p{
+	font-size: 1.2em;
+}
+div.link ul{
+	width: 100%;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	padding: 0;
+}
+div.link ul li{
+	width: 90%;
+	height: 150px;
+	margin-bottom: 10px;
+	border: 5px solid white;
+	border-radius: 20px;
+}
+div.link ul li.qnia{
+	background: red;
+}
+div.link ul li.mei{
+	background: blue;
+}
+div.link ul li a{
+	width: 100%;
+	height: 100%;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+	color: white;
+}
+div.link ul li a p.name{
+	font-size: 1.5em;
+	margin-bottom: 0;
+}
+div.link ul li a p.desc{
+	font-size: 0.9em;
+}
+div.description{
+	width: 700px;
+	background: #DDFFDF;
+	margin-left: 10px;
+	padding: 10px;
 }
 .whiteBack>a, .blueBack>a{
 	border: 3px solid #8bc9e1;
@@ -155,15 +235,6 @@ main > section {
 @media screen and (max-width: 1022px){
 	header{
 		position: static;
-	}
-	#home{
-		width: 65%;
-	}
-	#mainMenu{
-		order: 2;
-	}
-	nav{
-		margin: 0;
 	}
 	main{
 		flex-direction: column;

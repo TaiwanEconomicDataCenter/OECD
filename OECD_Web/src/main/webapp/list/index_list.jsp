@@ -11,6 +11,12 @@
 </head>
 <body>
 	<jsp:include page="/subviews/mainHeader.jsp" />
+	<main>
+		<aside id="left"></aside>
+		<section>
+		</section>
+		<aside id="right"></aside>
+	</main>
 	<jsp:include page="/subviews/mainFooter.jsp" />
 </body>
 </html>
