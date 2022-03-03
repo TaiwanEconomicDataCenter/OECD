@@ -27,11 +27,10 @@
 	}else{
 		queryString += ("&display="+display);
 	}
-	if(orderBy==null) {
+	if(orderBy==null || orderBy.length()<=0) {
 		orderBy = "name";
 		queryString += ("&orderBy="+orderBy);
 	}
-	System.out.println(orderBy);
 	boolean desc = false;
 	if(descend!=null){
 		desc = Boolean.valueOf(descend);

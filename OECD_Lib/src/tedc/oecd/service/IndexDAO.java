@@ -65,7 +65,7 @@ class IndexDAO {
 			}
 			pstmt.setInt(input+1, (page-1)*limit);
 			pstmt.setInt(input+2, limit);
-			System.out.println(pstmt.toString());
+			
 			try(
 					ResultSet rs = pstmt.executeQuery(); //4.執行指令	
 			){
