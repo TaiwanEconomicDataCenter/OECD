@@ -7,8 +7,8 @@ import tedc.oecd.exception.TEDCException;
 
 public class IndexService {
 	
-	public List<Index> getIndexByPage(String bank, int page, int limit) throws TEDCException{
-		return IndexDAO.selectIndexByPage(bank, page, limit);
+	public List<Index> getIndexByPage(String bank, int page, int limit, String order, boolean desc) throws TEDCException{
+		return IndexDAO.selectIndexByPage(bank, page, limit, order, desc);
 	}
 	public int getTotalCounts(String bank) throws TEDCException{
 		return IndexDAO.selectIndexCount(bank);

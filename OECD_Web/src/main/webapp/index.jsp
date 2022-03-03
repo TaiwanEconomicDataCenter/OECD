@@ -39,8 +39,8 @@
 				<div class="link">
 					<p>請選擇資料庫</p>
 					<ul>
-						<li class="qnia"><a href="<%= request.getContextPath() %>/list/index_list.jsp?bank=qnia&page=1"><p class="name">QNIA</p><p class="desc">(Quarterly National Accounts)</p></a></li>
-						<li class="mei"><a href="<%= request.getContextPath() %>/list/index_list.jsp?bank=mei&page=1"><p class="name">MEI</p><p class="desc">(Monthly Economic Indicators)</p></a></li>
+						<li class="qnia"><a href="<%= request.getContextPath() %>/list/index_list.jsp?bank=qnia"><p class="name">QNIA</p><p class="desc">(Quarterly National Accounts)</p></a></li>
+						<li class="mei"><a href="<%= request.getContextPath() %>/list/index_list.jsp?bank=mei"><p class="name">MEI</p><p class="desc">(Monthly Economic Indicators)</p></a></li>
 					</ul>
 				</div>
 				<div class="description">

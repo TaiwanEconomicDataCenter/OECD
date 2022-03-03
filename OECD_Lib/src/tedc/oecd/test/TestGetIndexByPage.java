@@ -22,7 +22,7 @@ public class TestGetIndexByPage {
 		
 		IndexService iService = new IndexService();
 		try {
-			List<Index> list = iService.getIndexByPage(bank, page, Index.pageLimit);
+			List<Index> list = iService.getIndexByPage(bank, page, Index.pageLimit, "name", true);
 			for(Index index:list) {
 				System.out.println(index);
 			}

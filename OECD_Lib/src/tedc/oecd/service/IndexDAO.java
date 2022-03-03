@@ -17,10 +17,10 @@ import tedc.oecd.exception.TEDCException;
 
 class IndexDAO {
 	private static final String SELECT_QNIA_INDEX_BY_PAGE=
-			"SELECT * FROM qnia_info LIMIT ?,?";
+			"SELECT * FROM qnia_info ORDER BY name ASC LIMIT ?,?";
 	private static final String SELECT_MEI_INDEX_BY_PAGE=
-			"SELECT * FROM mei_info LIMIT ?,?";
-	static List<Index> selectIndexByPage(String bank, int page, int limit) throws TEDCException{
+			"SELECT * FROM mei_info ORDER BY name ASC LIMIT ?,?";
+	static List<Index> selectIndexByPage(String bank, int page, int limit, String order, boolean desc) throws TEDCException{
 		List<Index> list = new ArrayList<>();
 		String SELECT_INDEX = null;
 		if(bank!=null && bank.trim().toLowerCase().equals("qnia")) {
@@ -29,6 +29,7 @@ class IndexDAO {
 			SELECT_INDEX = SELECT_MEI_INDEX_BY_PAGE;
 		}else throw new IllegalArgumentException("找不到名稱為"+bank+"的bank!");
 		
+		SELECT_INDEX = SELECT_INDEX.replace("ORDER BY name ASC", "ORDER BY "+order+" "+(desc?"DESC":"ASC"));
 		try(
 				Connection connection = RDBConnection.getConnection(bank); //1,2 取得連線
 				PreparedStatement pstmt = connection.prepareStatement(SELECT_INDEX); //3.準備指令
@@ -37,6 +38,7 @@ class IndexDAO {
 			//3.1 傳入?的值
 			pstmt.setInt(1, (page-1)*limit);
 			pstmt.setInt(2, limit);
+			
 			try(
 					ResultSet rs = pstmt.executeQuery(); //4.執行指令	
 			){
@@ -83,9 +85,9 @@ class IndexDAO {
 		return list;
 	}
 	private static final String SELECT_QNIA_INDEX_COUNT=
-			"SELECT * FROM qnia_count ";
+			"SELECT count(*) AS size FROM qnia_info ";
 	private static final String SELECT_MEI_INDEX_COUNT=
-			"SELECT * FROM mei_count ";
+			"SELECT count(*) AS size FROM mei_info ";
 	static int selectIndexCount(String bank) throws TEDCException{
 		int result=0;
 		String SELECT_INDEX = null;
