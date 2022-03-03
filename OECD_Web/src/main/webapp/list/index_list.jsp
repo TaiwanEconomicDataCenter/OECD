@@ -76,25 +76,12 @@
 					<section class="result">
 					<%if(list==null || list.size()<=0){ %>
 						<p class="error">查無資料</p>
-					<%}else{
-						int pageTotal = (int)Math.ceil(count*1D/display);%>
-						<ul class="pages">
-							<li><a href="<%=request.getRequestURI() %>?bank=<%=bank%>&page=1">第一頁</a></li>
-							<li><a href="<%=(pageNum-1>0)?request.getRequestURI()+"?bank="+bank+"&page="+(pageNum-1):""%>">上一頁</a></li>
-							<%if(pageNum-4>2){%>
-								<li>...</li>
-							<%}
-							for(int i=pageNum-4; i<=pageNum+4; i++){ 
-								if(i>0 && i<=pageTotal){%>
-									<li><a href="<%= request.getRequestURI()+"?bank="+bank+"&page="+i%>"><%=(i==pageNum)?"<b>"+i+"</b>":i %></a></li>
-								<%} %>
-							<%} %>
-							<%if(pageNum+4<pageTotal-1){%>
-								<li>...</li>
-							<%}%>
-							<li><a href="<%=(pageNum+1<=pageTotal)?request.getRequestURI()+"?bank="+bank+"&page="+(pageNum+1):""%>">下一頁</a></li>
-							<li><a href="<%=request.getRequestURI() %>?bank=<%=bank%>&page=<%=pageTotal%>">最後一頁</a></li>
-						</ul>
+					<%}else{%>
+						<jsp:include page="/subviews/page_list.jsp" >
+							<jsp:param name="bank" value="${param.bank }" />
+							<jsp:param name="page" value="${param.page }" />
+							<jsp:param name="display" value="${param.display }" />
+						</jsp:include>
 						<table class="result">
 							<thead><tr><td>請勾選</td><td>檢索代號</td><td>資料頻率</td><td>資料敘述</td></tr></thead>
 							<tbody>
@@ -120,23 +107,11 @@
 								<%} %>
 							</tbody>
 						</table>
-						<ul class="pages">
-							<li><a href="<%=request.getRequestURI() %>?bank=<%=bank%>&page=1">第一頁</a></li>
-							<li><a href="<%=(pageNum-1>0)?request.getRequestURI()+"?bank="+bank+"&page="+(pageNum-1):""%>">上一頁</a></li>
-							<%if(pageNum-4>2){%>
-								<li>...</li>
-							<%}
-							for(int i=pageNum-4; i<=pageNum+4; i++){ 
-								if(i>0 && i<=pageTotal){%>
-									<li><a href="<%= request.getRequestURI()+"?bank="+bank+"&page="+i%>"><%=(i==pageNum)?"<b>"+i+"</b>":i %></a></li>
-								<%} %>
-							<%} %>
-							<%if(pageNum+4<pageTotal-1){%>
-								<li>...</li>
-							<%}%>
-							<li><a href="<%=(pageNum+1<=pageTotal)?request.getRequestURI()+"?bank="+bank+"&page="+(pageNum+1):""%>">下一頁</a></li>
-							<li><a href="<%=request.getRequestURI() %>?bank=<%=bank%>&page=<%=pageTotal%>">最後一頁</a></li>
-						</ul>
+						<jsp:include page="/subviews/page_list.jsp" >
+							<jsp:param name="bank" value="${param.bank }" />
+							<jsp:param name="page" value="${param.page }" />
+							<jsp:param name="display" value="${param.display }" />
+						</jsp:include>
 					<%} %>
 					</section>
 				</div>
