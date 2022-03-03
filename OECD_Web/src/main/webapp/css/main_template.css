@@ -251,6 +251,7 @@ input#search{
 	background-image: url("/oecd/images/search.png");
 	background-position: center center;
 	background-size: cover;
+	cursor: pointer;
 }
 input.keyword{
 	width: 95%;
@@ -270,6 +271,7 @@ ul.pages>li:nth-child(1n+3):nth-last-child(1n+3){
 	width: 40px;
 }
 table.result{
+	width: 100%;
 	border: 2px solid black;
 	font-size: 0.8em;
 }

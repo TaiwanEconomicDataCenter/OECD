@@ -6,6 +6,7 @@
 	String bank = request.getParameter("bank");
 	String pageStr = request.getParameter("page");
 	String displayStr = request.getParameter("display");
+	String countStr = request.getParameter("count");
 	String queryString = request.getQueryString();
 	if(queryString==null) queryString = "bank="+bank;
 	int pageNum = 1;
@@ -22,9 +23,8 @@
 	}
 	int count = 0;
 	IndexService iService = new IndexService();
-	if(bank!=null){
-		bank = bank.trim();
-		count = iService.getTotalCounts(bank);
+	if(countStr!=null && countStr.matches("\\d+")){
+		count = Integer.parseInt(countStr);
 	}
 	int pageTotal = (int)Math.ceil(count*1D/display);
 %>
