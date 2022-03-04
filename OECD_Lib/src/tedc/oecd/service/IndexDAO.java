@@ -132,7 +132,7 @@ class IndexDAO {
 		){
 			//3.1 傳入?的值
 			for(Integer p:catMap.keySet()) {
-				pstmt.setString(p, "%"+catMap.get(p)+"%");
+				pstmt.setString(p, catMap.get(p));
 			}
 			pstmt.setInt(input+1, (page-1)*limit);
 			pstmt.setInt(input+2, limit);
@@ -254,7 +254,7 @@ class IndexDAO {
 		){
 			//3.1 傳入?的值
 			for(Integer p:catMap.keySet()) {
-				pstmt.setString(p, "%"+catMap.get(p)+"%");
+				pstmt.setString(p, catMap.get(p));
 			}
 			
 			try(

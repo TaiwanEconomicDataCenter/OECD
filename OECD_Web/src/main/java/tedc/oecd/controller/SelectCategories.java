@@ -49,9 +49,14 @@ public class SelectCategories extends HttpServlet {
 		
 		try {
 			List<String> countryList = null;
-			if(categoryMap!=null && categoryMap.get(Category.country)!=null && !categoryMap.get(Category.country).isEmpty()) {
+			if(categoryMap==null) {
+				categoryMap = new TreeMap<>();
+			}
+			if(categoryMap.get(Category.country)!=null && !categoryMap.get(Category.country).isEmpty()) {
 				countryList = categoryMap.get(Category.country);
-			}else countryList = new ArrayList<String>();
+			}else {
+				countryList = new ArrayList<String>();
+			}
 			
 			Map<String, String> countryMap = iService.getCountries(bank);
 			for(String countryCode:countryMap.keySet()) {
@@ -62,10 +67,7 @@ public class SelectCategories extends HttpServlet {
 			}
 			categoryMap.put(Category.country, countryList);
 			session.setAttribute("categoryMap", categoryMap);
-			
-			List<Index> indexList = iService.getIndexByPage(bank, categoryMap, 1, Index.defaultPageLimit, Index.defaultOrder, false);
-			request.setAttribute("categoryIndexList", indexList);
-			
+			//System.out.println(categoryMap);
 			response.sendRedirect(request.getContextPath()+"/list/index_list.jsp?bank="+bank);
 			return;
 		} catch (TEDCException e) {

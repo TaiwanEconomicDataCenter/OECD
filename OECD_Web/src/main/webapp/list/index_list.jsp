@@ -8,13 +8,20 @@
 <%@ page pageEncoding="utf-8"%>
 <%
 	String bank = request.getParameter("bank");
+	Map<Category, List<String>> categoryMap = (Map<Category, List<String>>)session.getAttribute("categoryMap");
 	String keyword = request.getParameter("keyword");
 	String category = request.getParameter("category");
 	int count = 0;
 	IndexService iService = new IndexService();
 	if(bank!=null){
 		bank = bank.trim();
-		count = iService.getTotalCounts(bank, keyword);
+		if(keyword!=null && keyword.length()>0){
+			count = iService.getTotalCounts(bank, keyword);
+		}else if(categoryMap!=null){
+			count = iService.getTotalCounts(bank, categoryMap);
+		}else{
+			count = iService.getTotalCounts(bank, "");
+		}
 	}
 %>
 <!DOCTYPE html>

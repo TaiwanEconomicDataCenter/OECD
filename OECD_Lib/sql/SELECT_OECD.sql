@@ -17,6 +17,9 @@ SELECT freq AS frequency FROM qnia_info GROUP BY freq;
 SELECT * FROM qnia_info WHERE name LIKE '%158%' OR desc_e LIKE '%158%' OR name_ord LIKE '%158%' OR book LIKE '%158%' OR form_e LIKE '%158%' ORDER BY name DESC LIMIT 0, 20;
 SELECT count(*) AS size FROM qnia_info  WHERE name LIKE '%158%' OR desc_e LIKE '%158%' OR name_ord LIKE '%158%' OR book LIKE '%158%' OR form_e LIKE '%158%';
 
+SELECT * FROM qnia_info WHERE name_ord='ARG';
+SELECT count(*) AS size FROM qnia_info WHERE name_ord='ARG';
+
 USE mei;
 CREATE view mei_info AS
 SELECT databank, name, db_table, db_code, desc_e, desc_c, freq, start, last, unit, name_ord, snl, book, form_e, form_c 

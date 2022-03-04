@@ -1,3 +1,4 @@
+<%@page import="tedc.oecd.entity.Category"%>
 <%@page import="tedc.oecd.entity.Frequency"%>
 <%@page import="java.util.HashMap"%>
 <%@page import="java.util.Map"%>
@@ -7,6 +8,7 @@
 <%@ page pageEncoding="utf-8"%>
 <%
 	String bank = request.getParameter("bank");
+	Map<Category, List<String>> categoryMap = (Map<Category, List<String>>)session.getAttribute("categoryMap");
 	String keyword = request.getParameter("keyword");
 	String pageStr = request.getParameter("page");
 	String displayStr = request.getParameter("display");
@@ -45,7 +47,14 @@
 	IndexService iService = new IndexService();
 	if(bank!=null && bank.length()>0){
 		bank = bank.trim();
-		list = iService.getIndexByPage(bank, keyword, pageNum, display, orderBy, desc);
+		if(keyword!=null && keyword.length()>0){
+			list = iService.getIndexByPage(bank, keyword, pageNum, display, orderBy, desc);
+		}else if(categoryMap!=null){
+			list = iService.getIndexByPage(bank, categoryMap, pageNum, display, orderBy, desc);
+		}else{
+			list = iService.getIndexByPage(bank, "", pageNum, display, orderBy, desc);
+		}
+		
 	}
 	Map<String, String> orderMap = new HashMap<>();
 	orderMap.put("name", "檢索代號");
