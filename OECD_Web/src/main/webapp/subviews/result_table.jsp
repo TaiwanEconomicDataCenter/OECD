@@ -21,14 +21,14 @@
 	}else{
 		queryString += ("&page="+pageNum);
 	}
-	int display = Index.pageLimit;
+	int display = Index.defaultPageLimit;
 	if(displayStr!=null && displayStr.matches("\\d+")){
 		display = Integer.parseInt(displayStr);
 	}else{
 		queryString += ("&display="+display);
 	}
 	if(orderBy==null || orderBy.length()<=0) {
-		orderBy = "name";
+		orderBy = Index.defaultOrder;
 		queryString += ("&orderBy="+orderBy);
 	}
 	boolean desc = false;
@@ -43,7 +43,7 @@
 	}
 	List<Index> list = null;
 	IndexService iService = new IndexService();
-	if(bank!=null){
+	if(bank!=null && bank.length()>0){
 		bank = bank.trim();
 		list = iService.getIndexByPage(bank, keyword, pageNum, display, orderBy, desc);
 	}
@@ -56,6 +56,7 @@
 	orderMap.put("start", "起始時間");
 	orderMap.put("last", "最新時間");
 %>
+<!-- result_table.jsp start -->
 <section class="result">
 <%if(list==null || list.size()<=0){ %>
 	<p class="error">查無資料</p>
@@ -119,3 +120,4 @@
 	</jsp:include>
 <%} %>
 </section>
+<!-- result_table.jsp end -->

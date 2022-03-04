@@ -15,7 +15,7 @@
 	}else{
 		queryString += ("&page="+pageNum);
 	}
-	int display = Index.pageLimit;
+	int display = Index.defaultPageLimit;
 	if(displayStr!=null && displayStr.matches("\\d+")){
 		display = Integer.parseInt(displayStr);
 	}else{

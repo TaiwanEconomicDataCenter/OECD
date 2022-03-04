@@ -5,6 +5,7 @@ import java.util.Scanner;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+import tedc.oecd.entity.Category;
 import tedc.oecd.entity.Index;
 import tedc.oecd.exception.TEDCException;
 import tedc.oecd.service.IndexService;
@@ -12,8 +13,9 @@ import tedc.oecd.service.IndexService;
 public class TestGetIndexByPage {
 
 	public static void main(String[] args) {
-		String a = "1*2*3";
-		System.out.println("a.split: "+a.split("\\*")[0]);
+//		String a = "1*2*3";
+//		System.out.println("a.split: "+a.split("\\*")[0]);
+		System.out.println("123"+null);
 		Scanner scanner = new Scanner(System.in);
 		System.out.println("Bank:");
 		String bank = scanner.next();
@@ -24,7 +26,7 @@ public class TestGetIndexByPage {
 		
 		IndexService iService = new IndexService();
 		try {
-			List<Index> list = iService.getIndexByPage(bank, null, page, Index.pageLimit, "name", true);
+			List<Index> list = iService.getIndexByPage(bank, "123", page, Index.defaultPageLimit, "name", true);
 			for(Index index:list) {
 				System.out.println(index);
 			}

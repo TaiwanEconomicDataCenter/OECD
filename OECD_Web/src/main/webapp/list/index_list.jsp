@@ -1,3 +1,4 @@
+<%@page import="tedc.oecd.entity.Category"%>
 <%@page import="java.util.HashMap"%>
 <%@page import="java.util.Map"%>
 <%@page import="tedc.oecd.entity.Frequency"%>
@@ -60,11 +61,11 @@ function repopulateForm(){
 					<table class="search">
 						<thead><tr><td>分類查詢</td></tr></thead>
 						<tbody>
-							<tr><td><a href="<%=request.getRequestURI() %>?category=country">依國家查詢</a></td></tr>
-							<tr><td><a href="<%=request.getRequestURI() %>?category=subject">依主題查詢</a></td></tr>
-							<tr><td><a href="<%=request.getRequestURI() %>?category=name">依檢索代號查詢</a></td></tr>
-							<tr><td><a href="<%=request.getRequestURI() %>?category=description">依資料敘述查詢</a></td></tr>
-							<tr><td><a href="<%=request.getRequestURI() %>?category=frequency">依資料頻率查詢</a></td></tr>
+							<tr><td><a href="<%=request.getRequestURI() %>?bank=<%=bank %>&category=country">依國家查詢</a></td></tr>
+							<tr><td><a href="<%=request.getRequestURI() %>?bank=<%=bank %>&category=subject">依主題查詢</a></td></tr>
+							<tr><td><a href="<%=request.getRequestURI() %>?bank=<%=bank %>&category=frequency">依資料頻率查詢</a></td></tr>
+							<tr><td><a href="<%=request.getRequestURI() %>?bank=<%=bank %>&category=name">依檢索代號查詢</a></td></tr>
+							<tr><td><a href="<%=request.getRequestURI() %>?bank=<%=bank %>&category=description">依資料敘述查詢</a></td></tr>
 						</tbody>
 					</table>
 					<br>
@@ -78,11 +79,17 @@ function repopulateForm(){
 							<input type="submit" id="search" value="">
 						</div>
 					</form>
+					<%if(category!=null && Category.checkCategory(category)){ %>
+					<jsp:include page="/subviews/searchBy_${param.category }.jsp" >
+						<jsp:param name="bank" value="${param.bank }" />
+					</jsp:include>
+					<%}else{ %>
 					<jsp:include page="/subviews/result_table.jsp" >
 						<jsp:param name="bank" value="${param.bank }" />
 						<jsp:param name="keyword" value="${param.keyword }" />
 						<jsp:param name="count" value="<%=count %>" />
 					</jsp:include>
+					<%} %>
 				</div>
 			</div>
 		</section>

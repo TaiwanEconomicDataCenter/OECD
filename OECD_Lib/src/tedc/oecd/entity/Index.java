@@ -13,7 +13,8 @@ public class Index {
 	private String countryCode;
 	private String subject;
 	private String reference;
-	public static final int pageLimit = 20;
+	public static final String defaultOrder = "name";
+	public static final int defaultPageLimit = 20;
 	
 	public String getBank() {
 		return bank;
