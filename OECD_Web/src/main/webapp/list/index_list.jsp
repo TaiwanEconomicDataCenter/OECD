@@ -8,10 +8,7 @@
 <%
 	String bank = request.getParameter("bank");
 	String keyword = request.getParameter("keyword");
-	String pageStr = request.getParameter("page");
-	String displayStr = request.getParameter("display");
-	String orderBy = request.getParameter("orderBy");
-	String descend = request.getParameter("desc");
+	String category = request.getParameter("category");
 	int count = 0;
 	IndexService iService = new IndexService();
 	if(bank!=null){
@@ -63,11 +60,11 @@ function repopulateForm(){
 					<table class="search">
 						<thead><tr><td>分類查詢</td></tr></thead>
 						<tbody>
-							<tr><td>依國家查詢</td></tr>
-							<tr><td>依主題查詢</td></tr>
-							<tr><td>依檢索代號查詢</td></tr>
-							<tr><td>依資料敘述查詢</td></tr>
-							<tr><td>依資料頻率查詢</td></tr>
+							<tr><td><a href="<%=request.getRequestURI() %>?category=country">依國家查詢</a></td></tr>
+							<tr><td><a href="<%=request.getRequestURI() %>?category=subject">依主題查詢</a></td></tr>
+							<tr><td><a href="<%=request.getRequestURI() %>?category=name">依檢索代號查詢</a></td></tr>
+							<tr><td><a href="<%=request.getRequestURI() %>?category=description">依資料敘述查詢</a></td></tr>
+							<tr><td><a href="<%=request.getRequestURI() %>?category=frequency">依資料頻率查詢</a></td></tr>
 						</tbody>
 					</table>
 					<br>
@@ -84,10 +81,6 @@ function repopulateForm(){
 					<jsp:include page="/subviews/result_table.jsp" >
 						<jsp:param name="bank" value="${param.bank }" />
 						<jsp:param name="keyword" value="${param.keyword }" />
-						<jsp:param name="page" value="${param.page }" />
-						<jsp:param name="display" value="${param.display }" />
-						<jsp:param name="orderBy" value="${param.orderBy }" />
-						<jsp:param name="desc" value="${param.desc }" />
 						<jsp:param name="count" value="<%=count %>" />
 					</jsp:include>
 				</div>

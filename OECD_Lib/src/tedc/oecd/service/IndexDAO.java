@@ -12,6 +12,7 @@ import java.util.TreeMap;
 import tedc.oecd.entity.Annual;
 import tedc.oecd.entity.Frequency;
 import tedc.oecd.entity.Index;
+import tedc.oecd.entity.Key;
 import tedc.oecd.entity.Monthly;
 import tedc.oecd.entity.Quarterly;
 import tedc.oecd.entity.TimeRange;
@@ -36,20 +37,11 @@ class IndexDAO {
 		Map<Integer, String> keywordMap = new TreeMap<>();
 		int input = 0;
 		if(keyword!=null && (keyword=keyword.trim()).length()>0) {
-			String[] columns = new String[] {"name","desc_e","name_ord","book","form_e"};
-			String whereClause = "WHERE ";
-			String[] keywordOrList = keyword.split("\\*");
-			for(int h=0; h<columns.length; h++) {
-				whereClause += (h>0?"OR ":"");
-				for(int i=0; i<keywordOrList.length; i++) {
-					whereClause += (i>0?"OR ":"");
-					String[] keywordAndList = keywordOrList[i].split(",");
-					for(int j=0; j<keywordAndList.length; j++) {
-						keywordMap.put(++input, keywordAndList[j]);
-						whereClause += (j>0?"AND ":"")+columns[h]+" LIKE ? ";
-					}
-				}
-			}
+			Key key = getKey(keyword, keywordMap, input);
+			keywordMap = key.getKeywordMap();
+			input = key.getInput();
+			String whereClause = key.getWhereClause();
+
 			SELECT_INDEX = SELECT_INDEX.replace("ORDER BY", whereClause+"ORDER BY");
 		}
 		
@@ -127,20 +119,11 @@ class IndexDAO {
 		Map<Integer, String> keywordMap = new TreeMap<>();
 		int input = 0;
 		if(keyword!=null && (keyword=keyword.trim()).length()>0) {
-			String[] columns = new String[] {"name","desc_e","name_ord","book","form_e"};
-			String whereClause = "WHERE ";
-			String[] keywordOrList = keyword.split("\\*");
-			for(int h=0; h<columns.length; h++) {
-				whereClause += (h>0?"OR ":"");
-				for(int i=0; i<keywordOrList.length; i++) {
-					whereClause += (i>0?"OR ":"");
-					String[] keywordAndList = keywordOrList[i].split(",");
-					for(int j=0; j<keywordAndList.length; j++) {
-						keywordMap.put(++input, keywordAndList[j]);
-						whereClause += (j>0?"AND ":"")+columns[h]+" LIKE ? ";
-					}
-				}
-			}
+			Key key = getKey(keyword, keywordMap, input);
+			keywordMap = key.getKeywordMap();
+			input = key.getInput();
+			String whereClause = key.getWhereClause();
+
 			SELECT_INDEX = SELECT_INDEX += whereClause;
 		}
 		
@@ -165,5 +148,30 @@ class IndexDAO {
 		}
 		
 		return result;
+	}
+	
+	static Key getKey(String keyword, Map<Integer, String> keywordMap, int input) throws TEDCException{
+		Key key = new Key();
+		
+		String[] columns = new String[] {"name","desc_e","name_ord","book","form_e"};
+		String whereClause = "WHERE ";
+		String[] keywordOrList = keyword.split("\\*");
+		for(int h=0; h<columns.length; h++) {
+			whereClause += (h>0?"OR ":"");
+			for(int i=0; i<keywordOrList.length; i++) {
+				whereClause += (i>0?"OR ":"");
+				String[] keywordAndList = keywordOrList[i].split(",");
+				for(int j=0; j<keywordAndList.length; j++) {
+					keywordMap.put(++input, keywordAndList[j]);
+					whereClause += (j>0?"AND ":"")+columns[h]+" LIKE ? ";
+				}
+			}
+		}
+		
+		key.setKeywordMap(keywordMap);
+		key.setInput(input);
+		key.setWhereClause(whereClause);
+		
+		return key;
 	}
 }
