@@ -98,7 +98,7 @@ function repopulateForm(){
 							<span class="refine">已篩選<%=categoryMap.get(Category.subject).size() %>個主題</span>
 						<%}
 						if(categoryMap.get(Category.frequency)!=null && !categoryMap.get(Category.frequency).isEmpty()){%>
-							<span class="refine">已篩選<%=categoryMap.get(Category.frequency).size() %>個主題</span>
+							<span class="refine">已篩選<%=categoryMap.get(Category.frequency).size() %>個頻率</span>
 						<%} %>
 					<%} %>
 					<table class="search">
@@ -131,7 +131,7 @@ function repopulateForm(){
 					<%}else{ %>
 					<jsp:include page="/subviews/result_table.jsp" >
 						<jsp:param name="bank" value="${param.bank }" />
-						<jsp:param name="keyword" value="${param.keyword }" />
+						<jsp:param name="keyword" value="${sessionScope.keyword }" />
 						<jsp:param name="count" value="<%=count %>" />
 					</jsp:include>
 					<%} %>

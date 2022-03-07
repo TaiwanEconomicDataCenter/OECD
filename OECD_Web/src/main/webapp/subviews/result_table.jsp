@@ -48,14 +48,6 @@
 	if(bank!=null && bank.length()>0){
 		bank = bank.trim();
 		list = iService.getIndexByPage(bank, keyword, categoryMap, pageNum, display, orderBy, desc);
-// 		if(keyword!=null && keyword.length()>0){
-// 			list = iService.getIndexByPage(bank, keyword, pageNum, display, orderBy, desc);
-// 		}else if(categoryMap!=null){
-// 			list = iService.getIndexByPage(bank, categoryMap, pageNum, display, orderBy, desc);
-// 		}else{
-// 			list = iService.getIndexByPage(bank, "", pageNum, display, orderBy, desc);
-// 		}
-		//System.out.println(list.size());
 	}
 	Map<String, String> orderMap = new HashMap<>();
 	orderMap.put("name", "檢索代號");
