@@ -48,7 +48,7 @@ function selectHandler(e){
 		final_quantity = 0;
 		$("input[type='checkbox']").each(selectCount);
 	}
-	$("span.countries").html(final_quantity);
+	$("span.categories").html(final_quantity);
 }
 function select(){
 	$(this).prop('checked',true);

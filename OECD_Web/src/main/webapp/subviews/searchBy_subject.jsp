@@ -11,56 +11,41 @@
 		categorySize = Integer.valueOf(categorySizeStr);
 	}
 	IndexService iService = new IndexService();
-	Map<String, String> countryMap = iService.getCountries(bank);
-	int mapSize = countryMap.size();
+	List<String> subjectList = iService.getSubjects(bank);
+	int listSize = subjectList.size();
 %>
-<!-- searchBy_country.jsp start -->
+<!-- searchBy_subject.jsp start -->
 <section class="result">
-<%if(countryMap==null || mapSize<=0){ %>
-	<p class="error">查無國家資料</p>
+<%if(subjectList==null || listSize<=0){ %>
+	<p class="error">查無主題資料</p>
 <%}else{%>
 	<form autocomplete="off" method="POST" action="<%= request.getContextPath() %>/categories.do">
-	<input class="total" type="hidden" data-total="<%=mapSize%>">
+	<input class="total" type="hidden" data-total="<%=listSize%>">
 	<input type="hidden" name="bank" value="${param.bank }">
 	<input type="hidden" name="category" value="${param.category }">
 	<div class="selection">
 		<section class="selection">
 			<input class='selection' type='button' name='selectAll' value='全選 ( Check ALL boxes )' onclick='selectHandler(this)'>
 			<input class='selection' type='button' name='cancelAll' value='全部清除 ( Clear ALL checked )' onclick='selectHandler(this)'>
-			<p class='selection'>已選取<span class="categories"><%=categorySize %></span>個國家或組織</p>
+			<p class='selection'>已選取<span class="categories"><%=categorySize %></span>個主題</p>
 		</section>
 		<section class="submit">
 			<input class='submit' type='submit' value='送出選取'>
 		</section>
 	</div>
-	<ul class="country">
-		<li>
-			<table class="result country">
-				<thead><tr><td>請勾選</td><td>國名/組織名</td></tr></thead>
-				<tbody>
-				<%int count = 1;
-				for(String countryCode:countryMap.keySet()){
-					if(count>Math.ceil(mapSize*1D/2)){
-						count = 1;%>
-					</tbody>
-			</table>
-		</li>
-		<li>
-			<table class="result country">
-				<thead><tr><td>請勾選</td><td>國名/組織名</td></tr></thead>
-				<tbody>
-					<%} %>
-					<tr>
-						<td class="slim checkbox"><input class="category" type="checkbox" name="<%=countryCode%>"></td>
-						<td><%=countryMap.get(countryCode) %></td>
-					</tr>
-				<%count++;
-				} %>
-				</tbody>
-			</table>
-		</li>
-	</ul>
+	<table class="result">
+		<thead><tr><td>請勾選</td><td>主題</td></tr></thead>
+		<tbody>
+		<%int count = 1;
+		for(String subject:subjectList){%>
+			<tr>
+				<td class="slim checkbox"><input class="category" type="checkbox" name="<%=subject%>"></td>
+				<td><%=subject %></td>
+			</tr>
+		<%} %>
+		</tbody>
+	</table>
 	</form>
 <%} %>
 </section>
-<!-- searchBy_country.jsp end -->
+<!-- searchBy_subject.jsp end -->

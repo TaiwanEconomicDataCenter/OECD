@@ -10,17 +10,11 @@ import tedc.oecd.exception.TEDCException;
 
 public class IndexService {
 	
-	public List<Index> getIndexByPage(String bank, String keyword, int page, int limit, String order, boolean desc) throws TEDCException{
-		return IndexDAO.selectIndexByPage(bank, keyword, page, limit, order, desc);
+	public List<Index> getIndexByPage(String bank, String keyword, Map<Category, List<String>> categoryMap, int page, int limit, String order, boolean desc) throws TEDCException{
+		return IndexDAO.selectIndexByPage(bank, keyword, categoryMap, page, limit, order, desc);
 	}
-	public int getTotalCounts(String bank, String keyword) throws TEDCException{
-		return IndexDAO.selectIndexCount(bank, keyword);
-	}
-	public List<Index> getIndexByPage(String bank, Map<Category, List<String>> categoryMap, int page, int limit, String order, boolean desc) throws TEDCException{
-		return IndexDAO.selectIndexByPage(bank, categoryMap, page, limit, order, desc);
-	}
-	public int getTotalCounts(String bank, Map<Category, List<String>> categoryMap) throws TEDCException{
-		return IndexDAO.selectIndexCount(bank, categoryMap);
+	public int getTotalCounts(String bank, String keyword, Map<Category, List<String>> categoryMap) throws TEDCException{
+		return IndexDAO.selectIndexCount(bank, keyword, categoryMap);
 	}
 	
 	public Map<String, String> getCountries(String bank) throws TEDCException{

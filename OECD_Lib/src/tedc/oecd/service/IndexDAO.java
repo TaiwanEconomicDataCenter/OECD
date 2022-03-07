@@ -26,7 +26,7 @@ class IndexDAO {
 	private static final String SELECT_MEI_INDEX_BY_PAGE=
 			"SELECT * FROM mei_info "
 			+ " ORDER BY name ASC LIMIT ?,?";
-	static List<Index> selectIndexByPage(String bank, String keyword, int page, int limit, String order, boolean desc) throws TEDCException{
+	static List<Index> selectIndexByPage(String bank, String keyword, Map<Category, List<String>> categoryMap, int page, int limit, String order, boolean desc) throws TEDCException{
 		List<Index> list = new ArrayList<>();
 		String SELECT_INDEX = null;
 		if(bank!=null && bank.trim().toLowerCase().equals("qnia")) {
@@ -41,9 +41,22 @@ class IndexDAO {
 			Key key = getKey(keyword, keywordMap, input);
 			keywordMap = key.getKeywordMap();
 			input = key.getInput();
-			String whereClause = key.getWhereClause();
-
-			SELECT_INDEX = SELECT_INDEX.replace("ORDER BY", whereClause+"ORDER BY");
+			if(input>0 && !keywordMap.isEmpty()) {
+				String whereClause = "WHERE "+key.getWhereClause();
+				SELECT_INDEX = SELECT_INDEX.replace("ORDER BY", whereClause+"ORDER BY");
+			}
+		}
+		Map<Integer, String> catMap = new TreeMap<>();
+		if(categoryMap!=null && categoryMap.size()>0) {
+			String whereClause = "WHERE ";
+			if(input>0) whereClause = "AND ";
+			Key key = getKey(categoryMap, catMap, input);
+			catMap = key.getKeywordMap();
+			input = key.getInput();
+			if(input>0 && !catMap.isEmpty()) {
+				whereClause += key.getWhereClause();
+				SELECT_INDEX = SELECT_INDEX.replace("ORDER BY", whereClause+"ORDER BY");
+			}
 		}
 		
 		SELECT_INDEX = SELECT_INDEX.replace("ORDER BY name ASC", "ORDER BY "+order+" "+(desc?"DESC":"ASC"));
@@ -56,87 +69,12 @@ class IndexDAO {
 			for(Integer p:keywordMap.keySet()) {
 				pstmt.setString(p, "%"+keywordMap.get(p)+"%");
 			}
-			pstmt.setInt(input+1, (page-1)*limit);
-			pstmt.setInt(input+2, limit);
-			
-			try(
-					ResultSet rs = pstmt.executeQuery(); //4.執行指令	
-			){
-				//5.處理rs
-				while(rs.next()) {
-					Index index = new Index();
-					
-					index.setBank(rs.getString("databank"));
-					index.setName(rs.getString("name"));
-					index.setTableName(rs.getString("db_table"));
-					index.setTableCode(rs.getString("db_code"));
-					index.setDescription(rs.getString("desc_e"));
-					index.setOriginalName(rs.getString("desc_c"));
-					TimeRange range = null;
-					Frequency freq = Frequency.valueOf(rs.getString("freq"));
-					if(freq!=null && freq.name().equals("A")) {
-						range = new Annual();
-						((Annual)range).setStartTime(rs.getInt("start"));
-						((Annual)range).setEndTime(rs.getInt("last"));
-					}else if(freq!=null && freq.name().equals("Q")) {
-						range = new Quarterly();
-						((Quarterly)range).setStartTime(rs.getString("start"));
-						((Quarterly)range).setEndTime(rs.getString("last"));
-					}else if(freq!=null && freq.name().equals("M")) {
-						range = new Monthly();
-						((Monthly)range).setStartTime(rs.getString("start"));
-						((Monthly)range).setEndTime(rs.getString("last"));
-					}
-					index.setTimeRange(range);
-					index.setUnit(rs.getString("unit"));
-					index.setCountry(rs.getString("book"));
-					index.setCountryCode(rs.getString("name_ord"));
-					index.setSubject(rs.getString("form_e"));
-					index.setReference(rs.getString("form_c"));
-					list.add(index);
-					
-				}
-			}
-			
-		}catch (SQLException e) {
-			throw new TEDCException("[以頁數查詢索引]失敗", e);
-		}
-		
-		return list;
-	}
-	static List<Index> selectIndexByPage(String bank, Map<Category, List<String>> categoryMap, int page, int limit, String order, boolean desc) throws TEDCException{
-		List<Index> list = new ArrayList<>();
-		String SELECT_INDEX = null;
-		if(bank!=null && bank.trim().toLowerCase().equals("qnia")) {
-			SELECT_INDEX = SELECT_QNIA_INDEX_BY_PAGE;
-		}else if(bank!=null && bank.trim().toLowerCase().equals("mei")) {
-			SELECT_INDEX = SELECT_MEI_INDEX_BY_PAGE;
-		}else throw new IllegalArgumentException("找不到名稱為"+bank+"的bank!");
-		
-		Map<Integer, String> catMap = new TreeMap<>();
-		int input = 0;
-		if(categoryMap!=null && categoryMap.size()>0) {
-			Key key = getKey(categoryMap, catMap, input);
-			catMap = key.getKeywordMap();
-			input = key.getInput();
-			String whereClause = key.getWhereClause();
-
-			SELECT_INDEX = SELECT_INDEX.replace("ORDER BY", whereClause+"ORDER BY");
-		}
-		
-		SELECT_INDEX = SELECT_INDEX.replace("ORDER BY name ASC", "ORDER BY "+order+" "+(desc?"DESC":"ASC"));
-		try(
-				Connection connection = RDBConnection.getConnection(bank); //1,2 取得連線
-				PreparedStatement pstmt = connection.prepareStatement(SELECT_INDEX); //3.準備指令
-				
-		){
-			//3.1 傳入?的值
 			for(Integer p:catMap.keySet()) {
 				pstmt.setString(p, catMap.get(p));
 			}
 			pstmt.setInt(input+1, (page-1)*limit);
 			pstmt.setInt(input+2, limit);
-			
+			System.out.println(pstmt.toString());
 			try(
 					ResultSet rs = pstmt.executeQuery(); //4.執行指令	
 			){
@@ -186,7 +124,7 @@ class IndexDAO {
 			"SELECT count(*) AS size FROM qnia_info ";
 	private static final String SELECT_MEI_INDEX_COUNT=
 			"SELECT count(*) AS size FROM mei_info ";
-	static int selectIndexCount(String bank, String keyword) throws TEDCException{
+	static int selectIndexCount(String bank, String keyword, Map<Category, List<String>> categoryMap) throws TEDCException{
 		int result=0;
 		String SELECT_INDEX = null;
 		if(bank!=null && bank.trim().toLowerCase().equals("qnia")) {
@@ -201,9 +139,22 @@ class IndexDAO {
 			Key key = getKey(keyword, keywordMap, input);
 			keywordMap = key.getKeywordMap();
 			input = key.getInput();
-			String whereClause = key.getWhereClause();
-
-			SELECT_INDEX = SELECT_INDEX += whereClause;
+			if(input>0 && !keywordMap.isEmpty()) {
+				String whereClause = "WHERE "+key.getWhereClause();
+				SELECT_INDEX = SELECT_INDEX += whereClause;
+			}
+		}
+		Map<Integer, String> catMap = new TreeMap<>();
+		if(categoryMap!=null && categoryMap.size()>0) {
+			String whereClause = "WHERE ";
+			if(input>0) whereClause = "AND ";
+			Key key = getKey(categoryMap, catMap, input);
+			catMap = key.getKeywordMap();
+			input = key.getInput();
+			if(input>0 && !catMap.isEmpty()) {
+				whereClause += key.getWhereClause();
+				SELECT_INDEX = SELECT_INDEX += whereClause;
+			}
 		}
 		
 		try(
@@ -214,49 +165,10 @@ class IndexDAO {
 			for(Integer p:keywordMap.keySet()) {
 				pstmt.setString(p, "%"+keywordMap.get(p)+"%");
 			}
-			
-			try(
-					ResultSet rs = pstmt.executeQuery(); //4.執行指令	
-			){
-				while(rs.next()) {
-					result = rs.getInt("size");
-				}
-			}
-		}catch (SQLException e) {
-			throw new TEDCException("[查詢筆數]失敗", e);
-		}
-		
-		return result;
-	}
-	static int selectIndexCount(String bank, Map<Category, List<String>> categoryMap) throws TEDCException{
-		int result=0;
-		String SELECT_INDEX = null;
-		if(bank!=null && bank.trim().toLowerCase().equals("qnia")) {
-			SELECT_INDEX = SELECT_QNIA_INDEX_COUNT;
-		}else if(bank!=null && bank.trim().toLowerCase().equals("mei")) {
-			SELECT_INDEX = SELECT_MEI_INDEX_COUNT;
-		}else throw new IllegalArgumentException("找不到名稱為"+bank+"的bank!");
-		
-		Map<Integer, String> catMap = new TreeMap<>();
-		int input = 0;
-		if(categoryMap!=null && categoryMap.size()>0) {
-			Key key = getKey(categoryMap, catMap, input);
-			catMap = key.getKeywordMap();
-			input = key.getInput();
-			String whereClause = key.getWhereClause();
-
-			SELECT_INDEX = SELECT_INDEX += whereClause;
-		}
-		
-		try(
-				Connection connection = RDBConnection.getConnection(bank); //1,2 取得連線
-				PreparedStatement pstmt = connection.prepareStatement(SELECT_INDEX); //3.準備指令
-		){
-			//3.1 傳入?的值
 			for(Integer p:catMap.keySet()) {
 				pstmt.setString(p, catMap.get(p));
 			}
-			
+			System.out.println(pstmt.toString());
 			try(
 					ResultSet rs = pstmt.executeQuery(); //4.執行指令	
 			){
@@ -275,7 +187,7 @@ class IndexDAO {
 		Key key = new Key();
 		
 		String[] columns = new String[] {"name","desc_e","name_ord","book","form_e"};
-		String whereClause = "WHERE ";
+		String whereClause = "(";
 		String[] keywordOrList = keyword.split("\\*");
 		for(int h=0; h<columns.length; h++) {
 			whereClause += (h>0?"OR ":"");
@@ -291,7 +203,7 @@ class IndexDAO {
 		
 		key.setKeywordMap(keywordMap);
 		key.setInput(input);
-		key.setWhereClause(whereClause);
+		key.setWhereClause(whereClause+") ");
 		
 		return key;
 	}
@@ -299,12 +211,12 @@ class IndexDAO {
 		Key key = new Key();
 		
 		//String[] columns = new String[] {"name","desc_e","name_ord","book","form_e"};
-		String whereClause = "WHERE ";
+		String whereClause = "(";
 		//String[] keywordOrList = keyword.split("\\*");
 		boolean hasCategory = false;
 		for(Category cat:categoryMap.keySet()) {
 			if(!categoryMap.get(cat).isEmpty()) {
-				whereClause += (hasCategory?"OR ":"");
+				whereClause += (hasCategory?") AND ( ":"");
 				hasCategory = true;
 				for(int i=0; i<categoryMap.get(cat).size(); i++) {
 					keywordMap.put(++input, categoryMap.get(cat).get(i));
@@ -315,7 +227,7 @@ class IndexDAO {
 		
 		key.setKeywordMap(keywordMap);
 		key.setInput(input);
-		key.setWhereClause(whereClause);
+		key.setWhereClause(whereClause+") ");
 		
 		return key;
 	}

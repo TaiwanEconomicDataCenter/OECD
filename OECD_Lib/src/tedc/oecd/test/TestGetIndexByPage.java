@@ -1,6 +1,8 @@
 package tedc.oecd.test;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Scanner;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -15,7 +17,9 @@ public class TestGetIndexByPage {
 	public static void main(String[] args) {
 //		String a = "1*2*3";
 //		System.out.println("a.split: "+a.split("\\*")[0]);
-		System.out.println("123"+null);
+		Map<Category, List<String>> map = new HashMap<>();
+		map.put(Category.name, null);
+		System.out.println(map.get(Category.country));
 		Scanner scanner = new Scanner(System.in);
 		System.out.println("Bank:");
 		String bank = scanner.next();
@@ -26,7 +30,7 @@ public class TestGetIndexByPage {
 		
 		IndexService iService = new IndexService();
 		try {
-			List<Index> list = iService.getIndexByPage(bank, "123", page, Index.defaultPageLimit, "name", true);
+			List<Index> list = iService.getIndexByPage(bank, "123", map, page, Index.defaultPageLimit, "name", true);
 			for(Index index:list) {
 				System.out.println(index);
 			}

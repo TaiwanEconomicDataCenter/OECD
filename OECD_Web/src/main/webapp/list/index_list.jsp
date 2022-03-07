@@ -8,21 +8,27 @@
 <%@ page pageEncoding="utf-8"%>
 <%
 	String bank = request.getParameter("bank");
-	Map<Category, List<String>> categoryMap = (Map<Category, List<String>>)session.getAttribute("categoryMap");
+	String storedbank = (String)session.getAttribute("bank");
+	if(storedbank==null) session.setAttribute("bank", bank);
+	else if(!storedbank.equals(bank)){
+		session.removeAttribute("categoryMap");
+		session.setAttribute("bank", bank);
+	}
 	String keyword = request.getParameter("keyword");
+	if(keyword==null){
+		keyword = (String)session.getAttribute("keyword");
+		if(keyword==null || keyword.length()<=0) session.removeAttribute("keyword");
+	}else if(keyword.length()>0) session.setAttribute("keyword", keyword);
+	else session.removeAttribute("keyword");
+	Map<Category, List<String>> categoryMap = (Map<Category, List<String>>)session.getAttribute("categoryMap");
 	String category = request.getParameter("category");
 	int count = 0;
 	IndexService iService = new IndexService();
 	if(bank!=null){
 		bank = bank.trim();
-		if(keyword!=null && keyword.length()>0){
-			count = iService.getTotalCounts(bank, keyword);
-		}else if(categoryMap!=null){
-			count = iService.getTotalCounts(bank, categoryMap);
-		}else{
-			count = iService.getTotalCounts(bank, "");
-		}
+		count = iService.getTotalCounts(bank, keyword, categoryMap);
 	}
+	int categorySize = 0;
 %>
 <!DOCTYPE html>
 <html>
@@ -39,7 +45,26 @@ function init(){
 	repopulateForm();
 }
 function repopulateForm(){
-	$("input[name='keyword']").val('${param.keyword}');
+	$("input[name='keyword']").val('${sessionScope.keyword }');
+	
+	<%if(category!=null && categoryMap!=null){
+		if(category.equals(Category.country.name()) && categoryMap.get(Category.country)!=null && !categoryMap.get(Category.country).isEmpty()){
+			categorySize = categoryMap.get(Category.country).size();
+			for(String countryCode:categoryMap.get(Category.country)) {%>
+				$("input[name='<%=countryCode%>']").prop('checked',true);
+			<%}%>
+		<%}else if(category.equals(Category.subject.name()) && categoryMap.get(Category.subject)!=null && !categoryMap.get(Category.subject).isEmpty()){
+			categorySize = categoryMap.get(Category.subject).size();
+			for(String subject:categoryMap.get(Category.subject)) {%>
+				$("input[name='<%=subject%>']").prop('checked',true);
+			<%}%>
+		<%}else if(category.equals(Category.frequency.name()) && categoryMap.get(Category.frequency)!=null && !categoryMap.get(Category.frequency).isEmpty()){
+			categorySize = categoryMap.get(Category.frequency).size();
+			for(String frequency:categoryMap.get(Category.frequency)) {%>
+				$("input[name='<%=frequency%>']").prop('checked',true);
+			<%}%>
+		<%}%>
+	<%}%>
 }
 </script>
 </head>
@@ -65,6 +90,17 @@ function repopulateForm(){
 				<div class="search">
 					<p>搜尋結果</p>
 					<p>共<%=count %>筆資料</p>
+					<%if(categoryMap!=null){
+						if(categoryMap.get(Category.country)!=null && !categoryMap.get(Category.country).isEmpty()){%>
+							<span class="refine">已篩選<%=categoryMap.get(Category.country).size() %>個國家或組織</span>
+						<%} 
+						if(categoryMap.get(Category.subject)!=null && !categoryMap.get(Category.subject).isEmpty()){%>
+							<span class="refine">已篩選<%=categoryMap.get(Category.subject).size() %>個主題</span>
+						<%}
+						if(categoryMap.get(Category.frequency)!=null && !categoryMap.get(Category.frequency).isEmpty()){%>
+							<span class="refine">已篩選<%=categoryMap.get(Category.frequency).size() %>個主題</span>
+						<%} %>
+					<%} %>
 					<table class="search">
 						<thead><tr><td>分類查詢</td></tr></thead>
 						<tbody>
@@ -89,6 +125,8 @@ function repopulateForm(){
 					<%if(category!=null && Category.checkCategory(category)){ %>
 					<jsp:include page="/subviews/searchBy_${param.category }.jsp" >
 						<jsp:param name="bank" value="${param.bank }" />
+						<jsp:param name="category" value="${param.category }" />
+						<jsp:param name="categorySize" value="<%=categorySize %>" />
 					</jsp:include>
 					<%}else{ %>
 					<jsp:include page="/subviews/result_table.jsp" >

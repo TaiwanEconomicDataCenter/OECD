@@ -47,14 +47,15 @@
 	IndexService iService = new IndexService();
 	if(bank!=null && bank.length()>0){
 		bank = bank.trim();
-		if(keyword!=null && keyword.length()>0){
-			list = iService.getIndexByPage(bank, keyword, pageNum, display, orderBy, desc);
-		}else if(categoryMap!=null){
-			list = iService.getIndexByPage(bank, categoryMap, pageNum, display, orderBy, desc);
-		}else{
-			list = iService.getIndexByPage(bank, "", pageNum, display, orderBy, desc);
-		}
-		
+		list = iService.getIndexByPage(bank, keyword, categoryMap, pageNum, display, orderBy, desc);
+// 		if(keyword!=null && keyword.length()>0){
+// 			list = iService.getIndexByPage(bank, keyword, pageNum, display, orderBy, desc);
+// 		}else if(categoryMap!=null){
+// 			list = iService.getIndexByPage(bank, categoryMap, pageNum, display, orderBy, desc);
+// 		}else{
+// 			list = iService.getIndexByPage(bank, "", pageNum, display, orderBy, desc);
+// 		}
+		//System.out.println(list.size());
 	}
 	Map<String, String> orderMap = new HashMap<>();
 	orderMap.put("name", "檢索代號");
@@ -79,7 +80,7 @@
 	<div class="modify">
 		<select class="modify" onchange="location=this.value;">
 			<%for(String ord:orderMap.keySet()){%>
-			<option value="<%= request.getRequestURI()+"?"+queryString.replace("orderBy="+orderBy, "orderBy="+ord)%>" <%=(ord.equals(orderBy))?"selected":"" %>>依<%=orderMap.get(ord) %>排序</option>
+			<option value="<%= request.getRequestURI()+"?"+queryString.replace("orderBy="+orderBy, "orderBy="+ord).replace("page="+pageNum, "page=1")%>" <%=(ord.equals(orderBy))?"selected":"" %>>依<%=orderMap.get(ord) %>排序</option>
 			<%} %>
 	  	</select>
 	  	<select class="modify" onchange="location=this.value;">
@@ -89,7 +90,7 @@
 		<select class="modify" onchange="location=this.value;">
 			<%int[] displayList = {5,10,20,50,100};
 			for(int d:displayList){%>
-			<option value="<%= request.getRequestURI()+"?"+queryString.replace("display="+display, "display="+d)%>" <%=(d==display)?"selected":"" %>>顯示<%=d %>個項目</option>
+			<option value="<%= request.getRequestURI()+"?"+queryString.replace("display="+display, "display="+d).replace("page="+pageNum, "page=1")%>" <%=(d==display)?"selected":"" %>>顯示<%=d %>個項目</option>
 			<%} %>
 	  	</select>
 	</div>
