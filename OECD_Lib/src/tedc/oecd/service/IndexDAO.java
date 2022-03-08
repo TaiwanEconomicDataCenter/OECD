@@ -219,8 +219,17 @@ class IndexDAO {
 				whereClause += (hasCategory?") AND ( ":"");
 				hasCategory = true;
 				for(int i=0; i<categoryMap.get(cat).size(); i++) {
-					keywordMap.put(++input, categoryMap.get(cat).get(i));
-					whereClause += (i>0?"OR ":"")+cat.getRelativeColumnName()+"=? ";
+					if(cat.equals(Category.name) || cat.equals(Category.description)) {
+						whereClause += (i>0?"OR ":"");
+						String[] andList = categoryMap.get(cat).get(i).split(",");
+						for(int j=0; j<andList.length; j++) {
+							keywordMap.put(++input, "%"+andList[j]+"%");
+							whereClause += (j>0?"AND ":"")+cat.getRelativeColumnName()+" LIKE ? ";
+						}
+					}else {
+						keywordMap.put(++input, categoryMap.get(cat).get(i));
+						whereClause += (i>0?"OR ":"")+cat.getRelativeColumnName()+"=? ";
+					}
 				}
 			}
 		}

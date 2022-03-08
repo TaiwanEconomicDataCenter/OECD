@@ -43,12 +43,28 @@ public class SelectCategories extends HttpServlet {
 		Map<Category, List<String>> categoryMap = (Map<Category, List<String>>)session.getAttribute("categoryMap");
 		IndexService iService = new IndexService();
 		String bank = (String)request.getParameter("bank");
+		String delete = (String)request.getParameter("catDel");
 		String category = (String)request.getParameter("category");
 		if(bank==null || bank.length()<=0) {
 			System.err.println("找不到名稱為"+bank+"的bank!");
 			response.sendRedirect(request.getContextPath()+"/list/index_list.jsp?bank="+bank+(keyword.length()>0?"&keyword="+keyword:""));
 			return;
-		}else if(category==null || !Category.checkCategory(category)) {
+		}
+		if(delete!=null) {
+			if(categoryMap==null) {
+				System.err.println("不存在categoryMap!");
+				response.sendRedirect(request.getContextPath()+"/list/index_list.jsp?bank="+bank+(keyword.length()>0?"&keyword="+keyword:""));
+				return;
+			}else if(!Category.checkCategory(delete)) {
+				System.err.println("找不到名稱為"+delete+"的category!");
+				response.sendRedirect(request.getContextPath()+"/list/index_list.jsp?bank="+bank+(keyword.length()>0?"&keyword="+keyword:""));
+				return;
+			}
+			categoryMap.remove(Category.valueOf(delete));
+			response.sendRedirect(request.getContextPath()+"/list/index_list.jsp?bank="+bank+(keyword.length()>0?"&keyword="+keyword:""));
+			return;
+		}
+		if(category==null || !Category.checkCategory(category)) {
 			System.err.println("找不到名稱為"+category+"的category!");
 			response.sendRedirect(request.getContextPath()+"/list/index_list.jsp?bank="+bank+(keyword.length()>0?"&keyword="+keyword:""));
 			return;
@@ -92,6 +108,16 @@ public class SelectCategories extends HttpServlet {
 					}
 				}
 				categoryMap.put(Category.frequency, frequencyList);
+			}else if(category.equals(Category.name.name())) {
+				String nameStr = request.getParameter("name");
+				if(nameStr==null) nameStr = "";
+				List<String> nameList = new ArrayList<String>();
+				
+				String[] nameOrList = nameStr.split("\\*");
+				for(int i=0; i<nameOrList.length; i++) {
+					nameList.add(nameOrList[i]);
+				}
+				categoryMap.put(Category.name, nameList);
 			}
 			
 			session.setAttribute("categoryMap", categoryMap);

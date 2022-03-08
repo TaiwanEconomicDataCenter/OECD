@@ -35,7 +35,7 @@
 		</section>
 	</div>
 	<table class="result">
-		<thead><tr><td>請勾選</td><td>主題</td></tr></thead>
+		<thead><tr><td>請勾選</td><td>頻率</td></tr></thead>
 		<tbody>
 		<%int count = 1;
 		for(Frequency frequency:frequencyList){%>

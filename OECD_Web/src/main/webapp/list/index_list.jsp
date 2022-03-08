@@ -63,6 +63,12 @@ function repopulateForm(){
 			for(String frequency:categoryMap.get(Category.frequency)) {%>
 				$("input[name='<%=frequency%>']").prop('checked',true);
 			<%}%>
+		<%}else if(category.equals(Category.name.name()) && categoryMap.get(Category.name)!=null && !categoryMap.get(Category.name).isEmpty()){
+			String nameStr = "";
+			for(String name:categoryMap.get(Category.name)) {
+				nameStr += ("*"+name);
+			}%>
+			$("textarea[name='name']").val('<%=nameStr.replaceFirst("\\*", "")%>');
 		<%}%>
 	<%}%>
 }
@@ -92,21 +98,40 @@ function repopulateForm(){
 					<p>共<%=count %>筆資料</p>
 					<%if(categoryMap!=null){
 						if(categoryMap.get(Category.country)!=null && !categoryMap.get(Category.country).isEmpty()){%>
-							<span class="refine">已篩選<%=categoryMap.get(Category.country).size() %>個國家或組織</span>
+						<form class="refine" autocomplete="off" method="POST" action="<%= request.getContextPath() %>/categories.do">
+							<input type="hidden" name="bank" value="${param.bank }">
+							<input type="hidden" name="catDel" value="<%=Category.country.name() %>">
+							<span class="refine">已篩選<%=categoryMap.get(Category.country).size() %>個國家或組織<button type="submit" class="catDel">x</button></span>
+						</form>
 						<%} 
 						if(categoryMap.get(Category.subject)!=null && !categoryMap.get(Category.subject).isEmpty()){%>
-							<span class="refine">已篩選<%=categoryMap.get(Category.subject).size() %>個主題</span>
+						<form class="refine" autocomplete="off" method="POST" action="<%= request.getContextPath() %>/categories.do">
+							<input type="hidden" name="bank" value="${param.bank }">
+							<input type="hidden" name="catDel" value="<%=Category.subject.name() %>">
+							<span class="refine">已篩選<%=categoryMap.get(Category.subject).size() %>個主題<button type="submit" class="catDel">x</button></span>
+						</form>
 						<%}
 						if(categoryMap.get(Category.frequency)!=null && !categoryMap.get(Category.frequency).isEmpty()){%>
-							<span class="refine">已篩選<%=categoryMap.get(Category.frequency).size() %>個頻率</span>
+						<form class="refine" autocomplete="off" method="POST" action="<%= request.getContextPath() %>/categories.do">
+							<input type="hidden" name="bank" value="${param.bank }">
+							<input type="hidden" name="catDel" value="<%=Category.frequency.name() %>">
+							<span class="refine">已篩選<%=categoryMap.get(Category.frequency).size() %>個頻率<button type="submit" class="catDel">x</button></span>
+						</form>
+						<%} 
+						if(categoryMap.get(Category.name)!=null && !categoryMap.get(Category.name).isEmpty()){%>
+						<form class="refine" autocomplete="off" method="POST" action="<%= request.getContextPath() %>/categories.do">
+							<input type="hidden" name="bank" value="${param.bank }">
+							<input type="hidden" name="catDel" value="<%=Category.name.name() %>">
+							<span class="refine">已篩選指定的檢索代號<button type="submit" class="catDel">x</button></span>
+						</form>
 						<%} %>
 					<%} %>
 					<table class="search">
 						<thead><tr><td>分類查詢</td></tr></thead>
 						<tbody>
-							<tr><td><a href="<%=request.getRequestURI() %>?bank=<%=bank %>&category=country">依國家查詢</a></td></tr>
-							<tr><td><a href="<%=request.getRequestURI() %>?bank=<%=bank %>&category=subject">依主題查詢</a></td></tr>
-							<tr><td><a href="<%=request.getRequestURI() %>?bank=<%=bank %>&category=frequency">依資料頻率查詢</a></td></tr>
+							<tr><td><a href="<%=request.getRequestURI() %>?bank=<%=bank %>&category=country">依國家篩選</a></td></tr>
+							<tr><td><a href="<%=request.getRequestURI() %>?bank=<%=bank %>&category=subject">依主題篩選</a></td></tr>
+							<tr><td><a href="<%=request.getRequestURI() %>?bank=<%=bank %>&category=frequency">依資料頻率篩選</a></td></tr>
 							<tr><td><a href="<%=request.getRequestURI() %>?bank=<%=bank %>&category=name">依檢索代號查詢</a></td></tr>
 							<tr><td><a href="<%=request.getRequestURI() %>?bank=<%=bank %>&category=description">依資料敘述查詢</a></td></tr>
 						</tbody>
