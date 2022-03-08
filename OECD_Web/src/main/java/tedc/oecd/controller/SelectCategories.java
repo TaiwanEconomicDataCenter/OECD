@@ -118,6 +118,16 @@ public class SelectCategories extends HttpServlet {
 					nameList.add(nameOrList[i]);
 				}
 				categoryMap.put(Category.name, nameList);
+			}else if(category.equals(Category.description.name())) {
+				String descriptionStr = request.getParameter("description");
+				if(descriptionStr==null) descriptionStr = "";
+				List<String> descriptionList = new ArrayList<String>();
+				
+				String[] descriptionOrList = descriptionStr.split("\\*");
+				for(int i=0; i<descriptionOrList.length; i++) {
+					descriptionList.add(descriptionOrList[i]);
+				}
+				categoryMap.put(Category.description, descriptionList);
 			}
 			
 			session.setAttribute("categoryMap", categoryMap);

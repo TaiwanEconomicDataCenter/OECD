@@ -1,3 +1,5 @@
+<%@page import="java.util.Set"%>
+<%@page import="tedc.oecd.entity.Cart"%>
 <%@page import="tedc.oecd.entity.Category"%>
 <%@page import="java.util.HashMap"%>
 <%@page import="java.util.Map"%>
@@ -29,6 +31,7 @@
 		count = iService.getTotalCounts(bank, keyword, categoryMap);
 	}
 	int categorySize = 0;
+	Cart cart = (Cart)session.getAttribute("cart");
 %>
 <!DOCTYPE html>
 <html>
@@ -69,8 +72,23 @@ function repopulateForm(){
 				nameStr += ("*"+name);
 			}%>
 			$("textarea[name='name']").val('<%=nameStr.replaceFirst("\\*", "")%>');
+		<%}else if(category.equals(Category.description.name()) && categoryMap.get(Category.description)!=null && !categoryMap.get(Category.description).isEmpty()){
+			String descriptionStr = "";
+			for(String description:categoryMap.get(Category.description)) {
+				descriptionStr += ("*"+description);
+			}%>
+			$("textarea[name='description']").val('<%=descriptionStr.replaceFirst("\\*", "")%>');
 		<%}%>
 	<%}%>
+	
+	<%if(cart!=null){
+		for(Frequency freq:cart.keySet()){
+			Set<Index> set = cart.getSetByFrequency(freq);
+			for(Index index:set){%>
+				$("input[name='<%=index.getName()%>']").prop('checked',true);
+			<%}
+		}
+	}%>
 }
 </script>
 </head>
@@ -124,6 +142,13 @@ function repopulateForm(){
 							<input type="hidden" name="catDel" value="<%=Category.name.name() %>">
 							<span class="refine">已篩選指定的檢索代號<button type="submit" class="catDel">x</button></span>
 						</form>
+						<%} 
+						if(categoryMap.get(Category.description)!=null && !categoryMap.get(Category.description).isEmpty()){%>
+						<form class="refine" autocomplete="off" method="POST" action="<%= request.getContextPath() %>/categories.do">
+							<input type="hidden" name="bank" value="${param.bank }">
+							<input type="hidden" name="catDel" value="<%=Category.description.name() %>">
+							<span class="refine">已篩選指定的資料敘述<button type="submit" class="catDel">x</button></span>
+						</form>
 						<%} %>
 					<%} %>
 					<table class="search">
@@ -132,8 +157,8 @@ function repopulateForm(){
 							<tr><td><a href="<%=request.getRequestURI() %>?bank=<%=bank %>&category=country">依國家篩選</a></td></tr>
 							<tr><td><a href="<%=request.getRequestURI() %>?bank=<%=bank %>&category=subject">依主題篩選</a></td></tr>
 							<tr><td><a href="<%=request.getRequestURI() %>?bank=<%=bank %>&category=frequency">依資料頻率篩選</a></td></tr>
-							<tr><td><a href="<%=request.getRequestURI() %>?bank=<%=bank %>&category=name">依檢索代號查詢</a></td></tr>
-							<tr><td><a href="<%=request.getRequestURI() %>?bank=<%=bank %>&category=description">依資料敘述查詢</a></td></tr>
+							<tr><td><a href="<%=request.getRequestURI() %>?bank=<%=bank %>&category=name">依檢索代號篩選</a></td></tr>
+							<tr><td><a href="<%=request.getRequestURI() %>?bank=<%=bank %>&category=description">依資料敘述篩選</a></td></tr>
 						</tbody>
 					</table>
 					<br>
@@ -143,7 +168,7 @@ function repopulateForm(){
 					<form id="submitKey" autocomplete="off" method="GET">
 						<div class="keyword">
 							<input type="hidden" name="bank" value="${param.bank }">
-							<input type="search" class="keyword" name="keyword" placeholder="輸入關鍵字" autofocus>
+							<input type="search" class="keyword" name="keyword" placeholder="輸入關鍵字">
 							<input type="submit" id="search" value="">
 						</div>
 					</form>

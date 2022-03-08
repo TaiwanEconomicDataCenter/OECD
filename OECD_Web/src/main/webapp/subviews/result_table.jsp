@@ -1,14 +1,18 @@
+<%@page import="java.util.HashSet"%>
+<%@page import="tedc.oecd.entity.Cart"%>
 <%@page import="tedc.oecd.entity.Category"%>
 <%@page import="tedc.oecd.entity.Frequency"%>
 <%@page import="java.util.HashMap"%>
 <%@page import="java.util.Map"%>
 <%@page import="tedc.oecd.service.IndexService"%>
 <%@page import="java.util.List"%>
+<%@page import="java.util.Set"%>
 <%@page import="tedc.oecd.entity.Index"%>
 <%@ page pageEncoding="utf-8"%>
 <%
 	String bank = request.getParameter("bank");
 	Map<Category, List<String>> categoryMap = (Map<Category, List<String>>)session.getAttribute("categoryMap");
+	Cart cart = (Cart)session.getAttribute("cart");
 	String keyword = request.getParameter("keyword");
 	String pageStr = request.getParameter("page");
 	String displayStr = request.getParameter("display");
@@ -48,6 +52,8 @@
 	if(bank!=null && bank.length()>0){
 		bank = bank.trim();
 		list = iService.getIndexByPage(bank, keyword, categoryMap, pageNum, display, orderBy, desc);
+		Set<Index> indexSet = new HashSet<>(list);
+		session.setAttribute("indexSet", indexSet);
 	}
 	Map<String, String> orderMap = new HashMap<>();
 	orderMap.put("name", "檢索代號");
@@ -86,7 +92,9 @@
 			<%} %>
 	  	</select>
 	</div>
-	<form autocomplete="off" method="POST" action="">
+	<form autocomplete="off" method="POST" action="<%= request.getContextPath() %>/add_to_cart.do">
+	<input type="hidden" name="bank" value="${param.bank }">
+	<input type="hidden" name="keyword" value="${param.keyword }">
 	<table class="result">
 		<thead><tr><td>請勾選</td><td>檢索代號</td><td>資料頻率</td><td>資料敘述</td></tr></thead>
 		<tbody>
@@ -113,6 +121,7 @@
 			<%} %>
 		</tbody>
 	</table>
+	<div id="cart"><p class="cart">已選擇<span class="cart"><%=(cart!=null)?cart.getTotalSize():0 %></span>筆資料</p><input class="cart" type="submit" value="放入索取清單"></div>
 	</form>
 	<jsp:include page="/subviews/page_list.jsp" >
 		<jsp:param name="bank" value="${param.bank }" />
