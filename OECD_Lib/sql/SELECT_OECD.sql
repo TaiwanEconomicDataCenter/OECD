@@ -14,7 +14,7 @@ SELECT book AS country, name_ord AS countryCode FROM qnia_info GROUP BY country;
 SELECT form_e AS subject FROM qnia_info GROUP BY form_e;
 SELECT freq AS frequency FROM qnia_info GROUP BY freq;
 
-SELECT * FROM qnia_info WHERE name LIKE '%158%' OR desc_e LIKE '%158%' OR name_ord LIKE '%158%' OR book LIKE '%158%' OR form_e LIKE '%158%' ORDER BY name DESC LIMIT 0, 20;
+SELECT * FROM qnia_info WHERE (name LIKE '%158%' OR desc_e LIKE '%158%' OR name_ord LIKE '%158%' OR book LIKE '%158%' OR form_e LIKE '%158%') ORDER BY name DESC LIMIT 0, 20;
 SELECT count(*) AS size FROM qnia_info  WHERE name LIKE '%158%' OR desc_e LIKE '%158%' OR name_ord LIKE '%158%' OR book LIKE '%158%' OR form_e LIKE '%158%';
 
 SELECT * FROM qnia_info WHERE name_ord='ARG';
