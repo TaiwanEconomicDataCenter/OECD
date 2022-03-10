@@ -112,7 +112,7 @@ function repopulateForm(){
 		<section>
 			<div class="main">
 				<div class="search">
-					<p>搜尋結果</p>
+					<p><a href="<%=request.getContextPath()+"/list/index_list.jsp?bank="+bank+(keyword!=null&&keyword.length()>0?"&keyword="+keyword:"") %>">搜尋結果</a></p>
 					<p>共<%=count %>筆資料</p>
 					<%if(categoryMap!=null){
 						if(categoryMap.get(Category.country)!=null && !categoryMap.get(Category.country).isEmpty()){%>

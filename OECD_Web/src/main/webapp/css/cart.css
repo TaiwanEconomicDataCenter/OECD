@@ -1,0 +1,149 @@
+section.cart{
+	height: 1000px;
+	flex-grow: 1.5;
+}
+ul.orders{
+	width: 100%;
+	height: 40px;
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+	justify-content: center;
+	color: white;
+	margin-bottom: 0;
+	padding: 0;
+}
+ul.orders li{
+	position: relative;
+	width: 33%;
+	height: 100%;
+	font-size: 1.2em;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
+ul.orders li div{
+	height: 100%;
+	background: #c2cccb;
+}
+ul.orders li div.side{
+	width: 5%;
+	cursor: pointer;
+}
+ul.orders li div.title{
+	width: 90%;
+	border-top-left-radius: 10px;
+	border-top-right-radius: 10px;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	cursor: pointer;
+}
+ul.orders li div.title a{
+	width: 100%;
+	height: 100%;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
+ul.orders li div.inner{
+	width: 100%;
+	background: white;
+	cursor: initial;
+}
+ul.orders li div.left{
+	border-bottom-right-radius: 10px;
+}
+ul.orders li div.right{
+	border-bottom-left-radius: 10px;
+}
+ul.orders li.target div{
+	background: #a1aaa9;
+}
+ul.orders li.target div.inner{
+	background: white;
+}
+div.container{
+	width: 100%;
+	min-height: 800px;
+	position: relative;
+}
+div.orders{
+	width: 99%;
+	min-height: 600px;
+	padding-bottom: 50px;
+	display: none;
+	flex-direction: column;
+	align-items: center;
+	position: absolute;
+	background: white;
+}
+div.target{
+	border: 2px solid #a1aaa9;
+	z-index: 1;
+	display: flex;
+}
+section.order{
+	width: 98%;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+}
+form.cart{
+	min-height: 600px;
+}
+table.cart{
+	margin-top: 10px;
+	text-align: center;
+	height: 600px;
+	overflow: auto;
+	display: inline-block;
+}
+table.cart thead{
+	background-color: #BBFFFF;
+}
+td.time{
+	width: 70px;
+}
+td.delete{
+	background-color: #FFEC8B;
+}
+section.selection{
+	width: 100%;
+	height: 60px;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
+div.delete{
+	width: 45%;
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+}
+section.timeRange{
+	width: 100%;
+	height: 60px;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+}
+select.timeRange{
+	border: 2px solid black;
+	width: 70px;
+}
+div.download{
+	width: 100%;
+	height: 50px;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
+input.download{
+	height: 100%;
+	background-color: #02a9fd;
+	font-weight: bold;
+	font-size: 1.5em;
+	cursor: pointer;
+}

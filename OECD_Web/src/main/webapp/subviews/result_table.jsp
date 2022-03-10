@@ -75,22 +75,28 @@
 		<jsp:param name="display" value="${param.display }" />
 		<jsp:param name="count" value="<%=count %>" />
 	</jsp:include>
-	<div class="modify">
-		<select class="modify" onchange="location=this.value;">
-			<%for(String ord:orderMap.keySet()){%>
-			<option value="<%= request.getRequestURI()+"?"+queryString.replace("orderBy="+orderBy, "orderBy="+ord).replace("page="+pageNum, "page=1")%>" <%=(ord.equals(orderBy))?"selected":"" %>>依<%=orderMap.get(ord) %>排序</option>
-			<%} %>
-	  	</select>
-	  	<select class="modify" onchange="location=this.value;">
-			<option value="<%= request.getRequestURI()+"?"+queryString.replace("&desc="+desc, "")%>" <%=(desc)?"":"selected" %>>順序排列</option>
-			<option value="<%= request.getRequestURI()+"?"+queryString.replace("desc="+desc, "desc=true")%>" <%=(desc)?"selected":"" %>>倒序排列</option>
-	  	</select>
-		<select class="modify" onchange="location=this.value;">
-			<%int[] displayList = {5,10,20,50,100};
-			for(int d:displayList){%>
-			<option value="<%= request.getRequestURI()+"?"+queryString.replace("display="+display, "display="+d).replace("page="+pageNum, "page=1")%>" <%=(d==display)?"selected":"" %>>顯示<%=d %>個項目</option>
-			<%} %>
-	  	</select>
+	<div class="selection">
+		<section class="selection">
+			<input class='selection' type='button' name='selectAll' value='全選 ( Check ALL boxes )' onclick='selectHandler(this)'>
+			<input class='selection' type='button' name='cancelAll' value='全部清除 ( Clear ALL checked )' onclick='selectHandler(this)'>
+		</section>
+		<div class="modify">
+			<select class="modify" onchange="location=this.value;">
+				<%for(String ord:orderMap.keySet()){%>
+				<option value="<%= request.getRequestURI()+"?"+queryString.replace("orderBy="+orderBy, "orderBy="+ord).replace("page="+pageNum, "page=1")%>" <%=(ord.equals(orderBy))?"selected":"" %>>依<%=orderMap.get(ord) %>排序</option>
+				<%} %>
+		  	</select>
+		  	<select class="modify" onchange="location=this.value;">
+				<option value="<%= request.getRequestURI()+"?"+queryString.replace("&desc="+desc, "")%>" <%=(desc)?"":"selected" %>>順序排列</option>
+				<option value="<%= request.getRequestURI()+"?"+queryString.replace("desc="+desc, "desc=true")%>" <%=(desc)?"selected":"" %>>倒序排列</option>
+		  	</select>
+			<select class="modify" onchange="location=this.value;">
+				<%int[] displayList = {5,10,20,50,100};
+				for(int d:displayList){%>
+				<option value="<%= request.getRequestURI()+"?"+queryString.replace("display="+display, "display="+d).replace("page="+pageNum, "page=1")%>" <%=(d==display)?"selected":"" %>>顯示<%=d %>個項目</option>
+				<%} %>
+		  	</select>
+		</div>
 	</div>
 	<form autocomplete="off" method="POST" action="<%= request.getContextPath() %>/add_to_cart.do">
 	<input type="hidden" name="bank" value="${param.bank }">
@@ -121,7 +127,7 @@
 			<%} %>
 		</tbody>
 	</table>
-	<div id="cart"><p class="cart">已選擇<span class="cart"><%=(cart!=null)?cart.getTotalSize():0 %></span>筆資料</p><input class="cart" type="submit" value="放入索取清單"></div>
+	<div id="cart"><p class="cart">已選擇<span class="cart"><%=(cart!=null)?cart.getTotalSize():0 %></span>筆資料</p><input class="cart" type="submit" value="放入或修改索取清單"></div>
 	</form>
 	<jsp:include page="/subviews/page_list.jsp" >
 		<jsp:param name="bank" value="${param.bank }" />

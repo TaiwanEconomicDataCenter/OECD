@@ -6,6 +6,7 @@ function init()
 	$("header").hover(overHandler,outHandler);
 	$("#top").click(topHandler);
 	$("input.category").change(selectHandler);
+	$("ul.orders li").click(targetHandler);
 }
 function topHandler(){
 	//alert($("body").height());
@@ -58,4 +59,10 @@ function cancel(){
 }
 function selectCount(){
 	final_quantity += Number($(this).prop("checked"));
+}
+function targetHandler(){
+	$("ul.orders li").removeClass("target");
+	$(this).addClass("target");
+	$("div.orders").removeClass("target");
+	$($(this).attr("value")).addClass("target");
 }

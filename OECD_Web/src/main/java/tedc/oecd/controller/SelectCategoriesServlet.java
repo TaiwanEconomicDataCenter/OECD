@@ -22,13 +22,13 @@ import tedc.oecd.service.IndexService;
  * Servlet implementation class SelectCategories
  */
 @WebServlet("/categories.do")
-public class SelectCategories extends HttpServlet {
+public class SelectCategoriesServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public SelectCategories() {
+    public SelectCategoriesServlet() {
         super();
         // TODO Auto-generated constructor stub
     }

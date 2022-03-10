@@ -67,8 +67,10 @@ public class Cart {
 		if(freq==null) throw new IllegalArgumentException("頻率不得為null!");
 		
 		Set<Index> set = cartMap.get(freq);
-		set.remove(index);
-		cartMap.put(freq, set);
+		if(set!=null) {
+			set.remove(index);
+			cartMap.put(freq, set);
+		}
 	}
 
 	public Set<Frequency> keySet() {

@@ -12,6 +12,7 @@ import javax.servlet.http.HttpSession;
 
 import tedc.oecd.entity.Cart;
 import tedc.oecd.entity.Index;
+import tedc.oecd.exception.TEDCException;
 
 /**
  * Servlet implementation class AddToCartServlet
@@ -58,6 +59,8 @@ public class AddToCartServlet extends HttpServlet {
 					cart.remove(index);
 				}
 			}
+		} catch (TEDCException e) {
+			this.log("加入索取清單失敗", e);
 		} catch (Exception e) {
 			this.log("加入索取清單，發生非預期錯誤", e);
 		}
