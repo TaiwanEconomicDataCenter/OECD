@@ -19,7 +19,7 @@ public class Cart {
 	}
 
 	public Set<Index> getSetByFrequency(Frequency freq) {
-		return cartMap.get(freq);
+		return cartMap.get(freq)!=null?new HashSet<>(cartMap.get(freq)):null;
 	}
 
 	public int getSetSizeByFrequency(Frequency freq) {
@@ -60,7 +60,7 @@ public class Cart {
 	public void remove(Frequency freq) {
 		cartMap.remove(freq);
 	}
-	public void remove(Index index) throws TEDCException {
+	public void remove(Index index) {
 		if(index==null) throw new IllegalArgumentException("索引不得為null!");
 		if(index.getTimeRange()==null) throw new IllegalArgumentException("索引時間範圍不得為null!");
 		Frequency freq = index.getTimeRange().getFreq();

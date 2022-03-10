@@ -14,5 +14,15 @@ public enum Frequency {
 		this.description = description;
 	}
 	
-	
+	public static boolean checkFrequency(String frequency) {
+		try {
+			Frequency.valueOf(frequency);
+		}catch(NullPointerException e) {
+			return false;
+		}catch(IllegalArgumentException e) {
+			return false;
+		}
+		
+		return true;
+	}
 }

@@ -28,7 +28,7 @@
 		<section class="selection">
 			<input class='selection' type='button' name='selectAll' value='全選 ( Check ALL boxes )' onclick='selectHandler(this)'>
 			<input class='selection' type='button' name='cancelAll' value='全部清除 ( Clear ALL checked )' onclick='selectHandler(this)'>
-			<p class='selection'>已選取<span class="categories"><%=categorySize %></span>個主題</p>
+			<p class='selection'>已選取<span class="categories"><%=categorySize %></span>個頻率</p>
 		</section>
 		<section class="submit">
 			<input class='submit' type='submit' value='送出選取'>

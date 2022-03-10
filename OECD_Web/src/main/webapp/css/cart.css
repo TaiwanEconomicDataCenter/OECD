@@ -1,5 +1,5 @@
 section.cart{
-	height: 1000px;
+	height: 900px;
 	flex-grow: 1.5;
 }
 ul.orders{
@@ -65,12 +65,12 @@ ul.orders li.target div.inner{
 }
 div.container{
 	width: 100%;
-	min-height: 800px;
+	min-height: 600px;
 	position: relative;
 }
 div.orders{
 	width: 99%;
-	min-height: 600px;
+	min-height: 500px;
 	padding-bottom: 50px;
 	display: none;
 	flex-direction: column;
@@ -89,15 +89,13 @@ section.order{
 	flex-direction: column;
 	align-items: center;
 }
-form.cart{
-	min-height: 600px;
+div.cart{
+	max-height: 600px;
+	overflow: auto;
 }
 table.cart{
 	margin-top: 10px;
 	text-align: center;
-	height: 600px;
-	overflow: auto;
-	display: inline-block;
 }
 table.cart thead{
 	background-color: #BBFFFF;
@@ -110,10 +108,10 @@ td.delete{
 }
 section.selection{
 	width: 100%;
-	height: 60px;
+	height: 35px;
 	display: flex;
 	align-items: center;
-	justify-content: center;
+	justify-content: space-between;
 }
 div.delete{
 	width: 45%;

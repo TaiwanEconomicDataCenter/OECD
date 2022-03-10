@@ -1,4 +1,8 @@
+<%@page import="tedc.oecd.entity.Frequency"%>
 <%@ page pageEncoding="utf-8"%>
+<%
+	String freq = request.getParameter("freq");
+%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -21,9 +25,9 @@
 		<aside id="left"></aside>
 		<section class="cart">
 			<ul class="orders">
-				<li value='div#annual' class='target'><div class='side'><div class='inner left'></div></div><div class='title'><span>年資料</span></div><div class='side'><div class='inner right'></div></div></li>
-				<li value='div#quarterly'><div class='side'><div class='inner left'></div></div><div class='title'><span>季資料</span></div><div class='side'><div class='inner right'></div></div></li>
-				<li value='div#monthly'><div class='side'><div class='inner left'></div></div><div class='title'><span>月資料</span></div><div class='side'><div class='inner right'></div></div></li>
+				<li value='div#annual' class='<%=(freq==null||freq.equals(Frequency.A.name()))?"target":"" %>'><div class='side'><div class='inner left'></div></div><div class='title'><span>年資料</span></div><div class='side'><div class='inner right'></div></div></li>
+				<li value='div#quarterly' class='<%=(freq!=null&&freq.equals(Frequency.Q.name()))?"target":"" %>'><div class='side'><div class='inner left'></div></div><div class='title'><span>季資料</span></div><div class='side'><div class='inner right'></div></div></li>
+				<li value='div#monthly' class='<%=(freq!=null&&freq.equals(Frequency.M.name()))?"target":"" %>'><div class='side'><div class='inner left'></div></div><div class='title'><span>月資料</span></div><div class='side'><div class='inner right'></div></div></li>
 			</ul>
 			<div class='container'>
 				<jsp:include page="/subviews/annual.jsp" />
