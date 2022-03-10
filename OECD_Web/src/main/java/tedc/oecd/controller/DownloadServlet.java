@@ -6,6 +6,9 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+
+import tedc.oecd.entity.Cart;
 
 /**
  * Servlet implementation class DownloadServlet
@@ -26,7 +29,11 @@ public class DownloadServlet extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		HttpSession session = request.getSession();
+		Cart cart = (Cart)session.getAttribute("cart");
 		String contentType = "application/octet-stream";
+		String frequency = request.getParameter("frequency");
+		
 	}
 
 }
