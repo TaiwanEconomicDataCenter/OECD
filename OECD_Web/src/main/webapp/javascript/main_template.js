@@ -7,6 +7,7 @@ function init()
 	$("#top").click(topHandler);
 	$("input.category").change(selectHandler);
 	$("ul.orders li").click(targetHandler);
+	$("input[name='deleteAll']").click(deleteAllHandler);
 }
 function topHandler(){
 	//alert($("body").height());
@@ -65,4 +66,8 @@ function targetHandler(){
 	$(this).addClass("target");
 	$("div.orders").removeClass("target");
 	$($(this).attr("value")).addClass("target");
+}
+function deleteAllHandler(e){
+	var freq_desc = $(this).attr("data-freq");
+	if(!confirm("是否要把所有已選"+freq_desc+"項移除?")) e.preventDefault(); //阻止超連結執行;
 }

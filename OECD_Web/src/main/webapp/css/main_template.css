@@ -139,6 +139,7 @@ nav.bank{
 	display: flex;
 	flex-direction: column;
 	align-items: center;
+	background-color: transparent;
 }
 nav.bank>p:first-of-type{
 	margin-bottom: 0;

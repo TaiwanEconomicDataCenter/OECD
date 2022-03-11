@@ -31,8 +31,8 @@
 						<td class="desc"><%=index.getDescription() %></td>
 						<td><%=index.getCountry() %></td>
 						<td><%=index.getSubject() %></td>
-						<td><%=index.getTimeRange().getStartTimeString() %></td>
-						<td><%=index.getTimeRange().getEndTimeString() %></td>
+						<td class="time"><%=index.getTimeRange().getStartTimeString() %></td>
+						<td class="time"><%=index.getTimeRange().getEndTimeString() %></td>
 						<td class="slim checkbox delete"><input type="checkbox" name="<%=index.getName()%>"></td>
 					</tr>
 					<%} %>
@@ -43,7 +43,7 @@
 			<p>共<%=cart.getSetSizeByFrequency(Frequency.M) %>筆</p>
 			<div class="delete">
 				<input class='delete' type='submit' name='delete' value='刪除選取項 ( Delete checked )'>
-				<input class='delete' type='submit' name='deleteAll' value='刪除所有<%=Frequency.M.getDescription() %> ( Delete ALL )'>
+				<input class='delete' type='submit' name='deleteAll' data-freq='<%=Frequency.M.getDescription() %>' value='刪除所有<%=Frequency.M.getDescription() %> ( Delete ALL )'>
 			</div>
 		</section>
 		</form>
@@ -53,7 +53,7 @@
 				<span>期間設定： 
 				起始
 				<select class="timeRange" name="startYear">
-				<%for(int i=1901; i<=Year.now().getValue(); i++){ %>
+				<%for(int i=1947; i<=Year.now().getValue(); i++){ %>
 					<option value="<%=i%>" <%=(i==2000)?"selected":"" %>><%=i%>年</option>
 				<%} %>
 				</select>
@@ -64,7 +64,7 @@
 				</select>
 				~結束
 				<select class="timeRange" name="endYear">
-				<%for(int i=1901; i<=Year.now().getValue()+2; i++){ %>
+				<%for(int i=1947; i<=Year.now().getValue()+2; i++){ %>
 					<option value="<%=i%>" <%=(i==Year.now().getValue())?"selected":"" %>><%=i%>年</option>
 				<%} %>
 				</select>

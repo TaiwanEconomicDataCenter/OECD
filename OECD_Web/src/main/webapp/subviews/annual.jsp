@@ -43,7 +43,7 @@
 			<p>共<%=cart.getSetSizeByFrequency(Frequency.A) %>筆</p>
 			<div class="delete">
 				<input class='delete' type='submit' name='delete' value='刪除選取項 ( Delete checked )'>
-				<input class='delete' type='submit' name='deleteAll' value='刪除所有<%=Frequency.A.getDescription() %> ( Delete ALL )'>
+				<input class='delete' type='submit' name='deleteAll' data-freq='<%=Frequency.A.getDescription() %>' value='刪除所有<%=Frequency.A.getDescription() %> ( Delete ALL )'>
 			</div>
 		</section>
 		</form>
@@ -53,13 +53,13 @@
 				<span>期間設定： 
 				起始
 				<select class="timeRange" name="startYear">
-				<%for(int i=1901; i<=Year.now().getValue(); i++){ %>
+				<%for(int i=1947; i<=Year.now().getValue(); i++){ %>
 					<option value="<%=i%>" <%=(i==2000)?"selected":"" %>><%=i%>年</option>
 				<%} %>
 				</select>
 				~結束
 				<select class="timeRange" name="endYear">
-				<%for(int i=1901; i<=Year.now().getValue()+2; i++){ %>
+				<%for(int i=1947; i<=Year.now().getValue()+2; i++){ %>
 					<option value="<%=i%>" <%=(i==Year.now().getValue())?"selected":"" %>><%=i%>年</option>
 				<%} %>
 				</select>

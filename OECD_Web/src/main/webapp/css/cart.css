@@ -90,15 +90,18 @@ section.order{
 	align-items: center;
 }
 div.cart{
+	margin-top: 10px;
 	max-height: 600px;
 	overflow: auto;
 }
 table.cart{
-	margin-top: 10px;
 	text-align: center;
 }
 table.cart thead{
 	background-color: #BBFFFF;
+}
+td.desc{
+	text-align: left;
 }
 td.time{
 	width: 70px;
