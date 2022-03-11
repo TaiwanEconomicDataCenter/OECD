@@ -1,6 +1,9 @@
 package tedc.oecd.controller;
 
 import java.io.IOException;
+import java.io.OutputStream;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -58,6 +61,7 @@ public class DownloadServlet extends HttpServlet {
 			return;
 		}
 		
+		//2.呼叫商業邏輯
 		try {
 			ExcelDownloadService eService = new ExcelDownloadService();
 			Set<IndexData> dataSet = new HashSet<>();
@@ -106,6 +110,16 @@ public class DownloadServlet extends HttpServlet {
 				dataSet.add(indexData);
 			}
 			
+			//2.1生成Excel並匯出
+			String fileName = "oecd"+LocalDate.now().format(DateTimeFormatter.BASIC_ISO_DATE)+freq.name()+".xls";
+			OutputStream out = response.getOutputStream();
+			response.setContentType("octets/stream");
+            response.setContentType("APPLICATION/OCTET-STREAM");
+            
+            eService.export(out, dataSet, fileName);
+			
+            out.flush();    
+            out.close();
 		} catch (TEDCException e) {
 			this.log("下載資料表格失敗", e);
 		} catch (Exception e) {

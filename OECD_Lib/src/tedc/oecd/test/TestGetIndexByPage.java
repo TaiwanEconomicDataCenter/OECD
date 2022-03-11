@@ -1,5 +1,8 @@
 package tedc.oecd.test;
 
+import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DecimalStyle;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -17,6 +20,7 @@ public class TestGetIndexByPage {
 	public static void main(String[] args) {
 //		String a = "1*2*3";
 //		System.out.println("a.split: "+a.split("\\*")[0]);
+		System.out.println("now: "+LocalTime.of(LocalTime.now().getHour(),LocalTime.now().getMinute(),LocalTime.now().getSecond()));
 		Map<Category, List<String>> map = new HashMap<>();
 		map.put(Category.name, null);
 		System.out.println(map.get(Category.country));

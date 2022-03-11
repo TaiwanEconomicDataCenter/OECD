@@ -32,3 +32,8 @@ SELECT count(*) AS size FROM mei_info;
 SELECT book AS country, name_ord AS countryCode FROM mei_info GROUP BY country;
 SELECT form_e AS subject FROM mei_info GROUP BY form_e;
 SELECT freq AS frequency FROM mei_info GROUP BY freq;
+
+SELECT * FROM db_a_0001;
+SELECT db_table, db_code FROM qnia_info WHERE name='A111B11CAR.a';
+SELECT db_a_0001.index, data001 FROM qnia.db_a_0001;
+SELECT db_a_0001.index, data001 FROM qnia.db_a_0001 WHERE db_a_0001.index>='2000' and db_a_0001.index<='2022';

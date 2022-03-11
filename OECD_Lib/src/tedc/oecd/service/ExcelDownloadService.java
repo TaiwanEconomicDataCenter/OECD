@@ -1,5 +1,6 @@
 package tedc.oecd.service;
 
+import java.io.OutputStream;
 import java.util.Set;
 
 import tedc.oecd.entity.Index;
@@ -16,7 +17,7 @@ public class ExcelDownloadService {
 		return DataBaseDAO.selectDataByTimeRange(index, selected);
 	}
 	
-	public void export(Set<IndexData> dataSet, String fileName) {
+	public void export(OutputStream out, Set<IndexData> dataSet, String fileName) {
 		
 	}
 }
