@@ -127,7 +127,7 @@ footer section{
 	align-items: center;
 }
 main {
-	min-height: 70vh;
+	min-height: 90vh;
 	padding: 0px;
 	display: flex;
 	flex-direction: row;
