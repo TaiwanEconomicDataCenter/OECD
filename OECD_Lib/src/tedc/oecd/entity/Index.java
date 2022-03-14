@@ -93,6 +93,7 @@ public class Index {
 		switch(category.trim()) {
 		case "name": return this.getName();
 		case "description": return this.getDescription();
+		case "bank": return this.getBank();
 		case "country": return this.getCountry();
 		case "subject": return this.getSubject();
 		case "unit": return this.getUnit();
