@@ -48,7 +48,7 @@ function init(){
 	repopulateForm();
 }
 function repopulateForm(){
-	$("input[name='keyword']").val('${sessionScope.keyword }');
+	$("input.keyword").val('${sessionScope.keyword }');
 	
 	<%if(category!=null && categoryMap!=null){
 		if(category.equals(Category.country.name()) && categoryMap.get(Category.country)!=null && !categoryMap.get(Category.country).isEmpty()){
@@ -171,6 +171,11 @@ function repopulateForm(){
 							<input type="search" class="keyword" name="keyword" placeholder="輸入關鍵字">
 							<input type="submit" id="search" value="">
 						</div>
+					</form>
+					<form class="clearKeyword" autocomplete="off" method="GET">
+						<input type="hidden" name="bank" value="${param.bank }">
+						<input type="hidden" name="keyword" value="">
+						<input type="submit" value="清除關鍵字">
 					</form>
 					<%if(category!=null && Category.checkCategory(category)){ %>
 					<jsp:include page="/subviews/searchBy_${param.category }.jsp" >

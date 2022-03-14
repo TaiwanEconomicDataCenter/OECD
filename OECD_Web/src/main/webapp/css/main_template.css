@@ -261,6 +261,7 @@ div.result{
 	background: white;
 	display: flex;
 	flex-direction: column;
+	position: relative;
 }
 div.keyword{
 	height: 30px;
@@ -277,10 +278,19 @@ input#search{
 	cursor: pointer;
 }
 input.keyword{
-	width: 95%;
+	width: 80%;
 	height: 100%;
 	padding: 0;
 	margin-right: 2px;
+}
+form.clearKeyword{
+	position: absolute;
+	top: 10px;
+	right: 10px;
+}
+form.clearKeyword input{
+	height: 30px;
+	font-size: 1em;
 }
 ul.pages{
 	display: flex;
