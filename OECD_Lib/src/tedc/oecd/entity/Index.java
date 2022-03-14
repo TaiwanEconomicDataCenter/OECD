@@ -89,6 +89,17 @@ public class Index {
 		this.reference = reference;
 	}
 	
+	public String getCategory(String category) {
+		switch(category.trim()) {
+		case "name": return this.getName();
+		case "description": return this.getDescription();
+		case "country": return this.getCountry();
+		case "subject": return this.getSubject();
+		case "unit": return this.getUnit();
+		}
+		throw new IllegalArgumentException("未知的category: "+category);
+	}
+	
 	@Override
 	public int hashCode() {
 		final int prime = 31;

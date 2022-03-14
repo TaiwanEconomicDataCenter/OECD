@@ -37,3 +37,5 @@ SELECT * FROM db_a_0001;
 SELECT db_table, db_code FROM qnia_info WHERE name='A111B11CAR.a';
 SELECT db_a_0001.index, data001 FROM qnia.db_a_0001;
 SELECT db_a_0001.index, data001 FROM qnia.db_a_0001 WHERE db_a_0001.index>='2000' and db_a_0001.index<='2022';
+
+SELECT db_table, db_code FROM mei_info WHERE name='A132CCRT01IOB.a';

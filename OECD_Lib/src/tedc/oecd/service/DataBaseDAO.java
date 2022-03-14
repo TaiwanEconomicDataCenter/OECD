@@ -50,7 +50,8 @@ public class DataBaseDAO {
 			){
 				//5.處理rs
 				while(rs.next()) {
-					indexData.inputData(rs.getString("index"), rs.getDouble(tableCode));
+					String data = rs.getString(tableCode);
+					indexData.inputData(rs.getString("index"), data!=null?Double.valueOf(data):null);
 				}
 			}
 			

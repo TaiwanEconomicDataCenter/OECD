@@ -4,8 +4,8 @@ import java.io.IOException;
 import java.io.OutputStream;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
-import java.util.HashSet;
-import java.util.Set;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -64,7 +64,7 @@ public class DownloadServlet extends HttpServlet {
 		//2.呼叫商業邏輯
 		try {
 			ExcelDownloadService eService = new ExcelDownloadService();
-			Set<IndexData> dataSet = new HashSet<>();
+			List<IndexData> dataList = new ArrayList<>();
 			TimeRange selected = null;
 			String startYear = request.getParameter("startYear");
 			String endYear = request.getParameter("endYear");
@@ -107,16 +107,17 @@ public class DownloadServlet extends HttpServlet {
 			
 			for(Index index:cart.getSetByFrequency(freq)) {
 				IndexData indexData = eService.getDataByTimeRange(index, selected);
-				dataSet.add(indexData);
+				dataList.add(indexData);
 			}
 			
 			//2.1生成Excel並匯出
 			String fileName = "oecd"+LocalDate.now().format(DateTimeFormatter.BASIC_ISO_DATE)+freq.name()+".xls";
+			response.setHeader("Content-Disposition", "attachment; filename="+fileName);
 			OutputStream out = response.getOutputStream();
 			response.setContentType("octets/stream");
             response.setContentType("APPLICATION/OCTET-STREAM");
             
-            eService.export(out, dataSet, fileName);
+            eService.export(out, dataList, selected);
 			
             out.flush();    
             out.close();

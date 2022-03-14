@@ -7,7 +7,7 @@ import java.util.TreeMap;
 
 public class IndexData {
 	private Index index;
-	private Map<Object, Double> dataMap = new TreeMap<>();
+	private Map<String, Double> dataMap = new TreeMap<>();
 	
 	public Index getIndex() {
 		return index;
@@ -21,13 +21,13 @@ public class IndexData {
 	public boolean isEmpty() {
 		return dataMap.isEmpty();
 	}
-	public Double getData(Object key) {
+	public Double getData(String key) {
 		return dataMap.get(key);
 	}
-	public Double inputData(Object key, Double value) {
+	public Double inputData(String key, Double value) {
 		return dataMap.put(key, value);
 	}
-	public Double remove(Object key) {
+	public Double remove(String key) {
 		return dataMap.remove(key);
 	}
 	public Set<Object> getTimeSet() {

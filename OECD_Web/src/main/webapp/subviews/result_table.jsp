@@ -127,7 +127,7 @@
 			<%} %>
 		</tbody>
 	</table>
-	<div id="cart"><p class="cart">已選擇<span class="cart"><%=(cart!=null)?cart.getTotalSize():0 %></span>筆資料</p><input class="cart" type="submit" value="放入或修改索取清單"></div>
+	<div id="cart"><p class="cart">已放入<span class="cart"><%=(cart!=null)?cart.getTotalSize():0 %></span>筆資料</p><input class="cart" type="submit" value="放入或修改索取清單"></div>
 	</form>
 	<jsp:include page="/subviews/page_list.jsp" >
 		<jsp:param name="bank" value="${param.bank }" />
