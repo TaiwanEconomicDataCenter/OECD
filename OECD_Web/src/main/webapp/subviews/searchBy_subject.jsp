@@ -27,14 +27,14 @@
 		<section class="selection">
 			<input class='selection' type='button' name='selectAll' value='全選 ( Check ALL boxes )' onclick='selectHandler(this)'>
 			<input class='selection' type='button' name='cancelAll' value='全部清除 ( Clear ALL checked )' onclick='selectHandler(this)'>
-			<p class='selection'>已選取<span class="categories"><%=categorySize %></span>個主題</p>
+			<p class='selection'>已選取<span class="categories"><%=categorySize %></span>個主題(<span class="categories"><%=categorySize %></span> selected)</p>
 		</section>
 		<section class="submit">
-			<input class='submit' type='submit' value='送出選取'>
+			<input class='submit' type='submit' value='送出選取Submit'>
 		</section>
 	</div>
 	<table class="result">
-		<thead><tr><td>請勾選</td><td>主題</td></tr></thead>
+		<thead><tr><td>請勾選</td><td>主題(topic)</td></tr></thead>
 		<tbody>
 		<%int count = 1;
 		for(String subject:subjectList){%>

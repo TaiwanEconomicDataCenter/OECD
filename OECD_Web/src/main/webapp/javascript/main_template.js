@@ -69,5 +69,5 @@ function targetHandler(){
 }
 function deleteAllHandler(e){
 	var freq_desc = $(this).attr("data-freq");
-	if(!confirm("是否要把所有已選"+freq_desc+"項移除?")) e.preventDefault(); //阻止超連結執行;
+	if(!confirm("是否要把所有已選"+freq_desc+"項移除(Confirm Delete ALL)?")) e.preventDefault(); //阻止超連結執行;
 }

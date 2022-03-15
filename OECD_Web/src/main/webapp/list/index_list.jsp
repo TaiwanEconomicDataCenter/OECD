@@ -112,70 +112,83 @@ function repopulateForm(){
 		<section>
 			<div class="main">
 				<div class="search">
-					<p><a href="<%=request.getContextPath()+"/list/index_list.jsp?bank="+bank+(keyword!=null&&keyword.length()>0?"&keyword="+keyword:"") %>">搜尋結果</a></p>
+					<p><a href="<%=request.getContextPath()+"/list/index_list.jsp?bank="+bank+(keyword!=null&&keyword.length()>0?"&keyword="+keyword:"") %>">搜尋結果(Results)</a></p>
 					<p>共<%=count %>筆資料</p>
 					<%if(categoryMap!=null){
 						if(categoryMap.get(Category.country)!=null && !categoryMap.get(Category.country).isEmpty()){%>
 						<form class="refine" autocomplete="off" method="POST" action="<%= request.getContextPath() %>/categories.do">
 							<input type="hidden" name="bank" value="${param.bank }">
 							<input type="hidden" name="catDel" value="<%=Category.country.name() %>">
-							<span class="refine">已篩選<%=categoryMap.get(Category.country).size() %>個國家或組織<button type="submit" class="catDel">x</button></span>
+							<span class="refine"><span>已篩選<%=categoryMap.get(Category.country).size() %>個國家或組織<br>
+							(<%=categoryMap.get(Category.country).size()>1?categoryMap.get(Category.country).size()+" countries":categoryMap.get(Category.country).size()+" country" %> refined)</span>
+							<button type="submit" class="catDel">x</button></span>
 						</form>
 						<%} 
 						if(categoryMap.get(Category.subject)!=null && !categoryMap.get(Category.subject).isEmpty()){%>
 						<form class="refine" autocomplete="off" method="POST" action="<%= request.getContextPath() %>/categories.do">
 							<input type="hidden" name="bank" value="${param.bank }">
 							<input type="hidden" name="catDel" value="<%=Category.subject.name() %>">
-							<span class="refine">已篩選<%=categoryMap.get(Category.subject).size() %>個主題<button type="submit" class="catDel">x</button></span>
+							<span class="refine"><span>已篩選<%=categoryMap.get(Category.subject).size() %>個主題<br>
+							(<%=categoryMap.get(Category.subject).size()>1?categoryMap.get(Category.subject).size()+" topics":categoryMap.get(Category.subject).size()+" topic" %> refined)</span>
+							<button type="submit" class="catDel">x</button></span>
 						</form>
 						<%}
 						if(categoryMap.get(Category.frequency)!=null && !categoryMap.get(Category.frequency).isEmpty()){%>
 						<form class="refine" autocomplete="off" method="POST" action="<%= request.getContextPath() %>/categories.do">
 							<input type="hidden" name="bank" value="${param.bank }">
 							<input type="hidden" name="catDel" value="<%=Category.frequency.name() %>">
-							<span class="refine">已篩選<%=categoryMap.get(Category.frequency).size() %>個頻率<button type="submit" class="catDel">x</button></span>
+							<span class="refine"><span>已篩選<%=categoryMap.get(Category.frequency).size() %>個頻率<br>
+							(<%=categoryMap.get(Category.frequency).size()>1?categoryMap.get(Category.frequency).size()+" frequencies":categoryMap.get(Category.frequency).size()+" frequency" %> refined)</span>
+							<button type="submit" class="catDel">x</button></span>
 						</form>
 						<%} 
 						if(categoryMap.get(Category.name)!=null && !categoryMap.get(Category.name).isEmpty()){%>
 						<form class="refine" autocomplete="off" method="POST" action="<%= request.getContextPath() %>/categories.do">
 							<input type="hidden" name="bank" value="${param.bank }">
 							<input type="hidden" name="catDel" value="<%=Category.name.name() %>">
-							<span class="refine">已篩選指定的檢索代號<button type="submit" class="catDel">x</button></span>
+							<span class="refine"><span>已篩選指定的檢索代號<br>
+							(Names refined)</span>
+							<button type="submit" class="catDel">x</button></span>
 						</form>
 						<%} 
 						if(categoryMap.get(Category.description)!=null && !categoryMap.get(Category.description).isEmpty()){%>
 						<form class="refine" autocomplete="off" method="POST" action="<%= request.getContextPath() %>/categories.do">
 							<input type="hidden" name="bank" value="${param.bank }">
 							<input type="hidden" name="catDel" value="<%=Category.description.name() %>">
-							<span class="refine">已篩選指定的資料敘述<button type="submit" class="catDel">x</button></span>
+							<span class="refine"><span>已篩選指定的資料敘述<br>
+							(Descriptions refined)</span>
+							<button type="submit" class="catDel">x</button></span>
 						</form>
 						<%} %>
 					<%} %>
 					<table class="search">
-						<thead><tr><td>分類查詢</td></tr></thead>
+						<thead><tr><td>分類查詢<br>(Refine your search)</td></tr></thead>
 						<tbody>
-							<tr><td><a href="<%=request.getRequestURI() %>?bank=<%=bank %>&category=country">依國家篩選</a></td></tr>
-							<tr><td><a href="<%=request.getRequestURI() %>?bank=<%=bank %>&category=subject">依主題篩選</a></td></tr>
-							<tr><td><a href="<%=request.getRequestURI() %>?bank=<%=bank %>&category=frequency">依資料頻率篩選</a></td></tr>
-							<tr><td><a href="<%=request.getRequestURI() %>?bank=<%=bank %>&category=name">依檢索代號篩選</a></td></tr>
-							<tr><td><a href="<%=request.getRequestURI() %>?bank=<%=bank %>&category=description">依資料敘述篩選</a></td></tr>
+							<tr><td><a href="<%=request.getRequestURI() %>?bank=<%=bank %>&category=country">依國家篩選<br>(Countries)</a></td></tr>
+							<tr><td><a href="<%=request.getRequestURI() %>?bank=<%=bank %>&category=subject">依主題篩選<br>(Topics)</a></td></tr>
+							<tr><td><a href="<%=request.getRequestURI() %>?bank=<%=bank %>&category=frequency">依資料頻率篩選<br>(Frequencies)</a></td></tr>
+							<tr><td><a href="<%=request.getRequestURI() %>?bank=<%=bank %>&category=name">依檢索代號篩選<br>(Names)</a></td></tr>
+							<tr><td><a href="<%=request.getRequestURI() %>?bank=<%=bank %>&category=description">依資料敘述篩選<br>(Descriptions)</a></td></tr>
 						</tbody>
 					</table>
 					<br>
-					<span>本搜尋系統輸入英文字母並不分別大小寫。大寫或小寫均接受，而視為相同。又查詢文字串可用“,”(代表 and，即交集) 或者“*”(代表 or，即聯集) 連結起來。例如：France,GDP或者France*GDP</span><br>
+					<span>本搜尋系統輸入英文字母並不分別大小寫。
+					大寫或小寫均接受，而視為相同(Case-insensitive)。
+					又查詢文字串可用“,”(代表 and，即交集) 或者“*”(代表 or，即聯集) 連結起來。
+					例如：France,GDP或者France*GDP</span><br>
 				</div>
 				<div class="result">
 					<form id="submitKey" autocomplete="off" method="GET">
 						<div class="keyword">
 							<input type="hidden" name="bank" value="${param.bank }">
-							<input type="search" class="keyword" name="keyword" placeholder="輸入關鍵字">
+							<input type="search" class="keyword" name="keyword" placeholder="輸入關鍵字(keyword search)">
 							<input type="submit" id="search" value="">
 						</div>
 					</form>
 					<form class="clearKeyword" autocomplete="off" method="GET">
 						<input type="hidden" name="bank" value="${param.bank }">
 						<input type="hidden" name="keyword" value="">
-						<input type="submit" value="清除關鍵字">
+						<input type="submit" value="清除關鍵字(Clear)">
 					</form>
 					<%if(category!=null && Category.checkCategory(category)){ %>
 					<jsp:include page="/subviews/searchBy_${param.category }.jsp" >

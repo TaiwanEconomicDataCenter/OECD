@@ -30,8 +30,8 @@
 %>
 <!-- page_list.jsp start -->
 <ul class="pages">
-	<li><a href="<%=request.getRequestURI() %>?<%=queryString.replace("page="+pageNum, "page=1")%>">第一頁</a></li>
-	<li><a href="<%=(pageNum-1>0)?request.getRequestURI()+"?"+queryString.replace("page="+pageNum, "page="+(pageNum-1)):""%>">上一頁</a></li>
+	<li><a title="第一頁" href="<%=request.getRequestURI() %>?<%=queryString.replace("page="+pageNum, "page=1")%>"><%="<<"%></a></li>
+	<li><a title="上一頁" href="<%=(pageNum-1>0)?request.getRequestURI()+"?"+queryString.replace("page="+pageNum, "page="+(pageNum-1)):""%>"><%="<"%></a></li>
 	<%if(pageNum-4>2){%>
 		<li>...</li>
 	<%}
@@ -43,7 +43,7 @@
 	<%if(pageNum+4<pageTotal-1){%>
 		<li>...</li>
 	<%}%>
-	<li><a href="<%=(pageNum+1<=pageTotal)?request.getRequestURI()+"?"+queryString.replace("page="+pageNum, "page="+(pageNum+1)):""%>">下一頁</a></li>
-	<li><a href="<%=request.getRequestURI() %>?<%=queryString.replace("page="+pageNum, "page="+pageTotal)%>">最後一頁</a></li>
+	<li><a title="下一頁" href="<%=(pageNum+1<=pageTotal)?request.getRequestURI()+"?"+queryString.replace("page="+pageNum, "page="+(pageNum+1)):""%>"><%=">"%></a></li>
+	<li><a title="最後一頁" href="<%=request.getRequestURI() %>?<%=queryString.replace("page="+pageNum, "page="+pageTotal)%>"><%=">>"%></a></li>
 </ul>
 <!-- page_list.jsp end -->

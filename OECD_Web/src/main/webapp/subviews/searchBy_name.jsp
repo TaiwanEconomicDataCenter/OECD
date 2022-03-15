@@ -13,11 +13,11 @@
 	<input type="hidden" name="category" value="${param.category }">
 	<div class="text">
 		<section class="text">
-			<p>請輸入檢索代號文字串:</p>
+			<p>請輸入檢索代號文字串(Enter names):</p>
 		</section>
 		<section class="text">
-			<textarea name="name" placeholder="輸入檢索代號" autofocus tabindex="1"></textarea>
-			<input class='submit' type='submit' value='查詢'>
+			<textarea name="name" placeholder="輸入檢索代號(names)" autofocus tabindex="1"></textarea>
+			<input class='submit' type='submit' value='查詢Submit'>
 		</section>
 	</div>
 	</form>

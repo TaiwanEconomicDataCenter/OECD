@@ -17,13 +17,13 @@
 <div id='quarterly' class='orders <%=(freq!=null&&freq.equals(Frequency.Q.name()))?"target":"" %>'>
 	<section class="order">
 	<%if(cart==null || indexSet==null || indexSet.isEmpty()){ %>
-		<p class="error">查無<%=Frequency.Q.getDescription() %></p>
+		<p class="error">查無<%=Frequency.Q.getDescription() %>(No quarterly items found)</p>
 	<%}else{ %>
 		<form class="cart" autocomplete="off" method="POST" action="<%= request.getContextPath() %>/update_cart.do">
 		<input type="hidden" name="frequency" value="<%=Frequency.Q.name()%>">
 		<div class="cart">
 			<table class="result cart">
-				<thead><tr><td>資料庫</td><td>檢索代號</td><td>資料敘述</td><td>國家</td><td>主題</td><td>起始時間</td><td>最新時間</td><td class="delete">可刪除</td></tr></thead>
+				<thead><tr><td>資料庫</td><td>檢索代號<br>(name)</td><td>資料敘述<br>(description)</td><td>國家<br>(country)</td><td>主題<br>(topic)</td><td>起始時間<br>(start)</td><td>最新時間<br>(last)</td><td class="delete">可刪除</td></tr></thead>
 				<tbody>
 					<%for(Index index:indexSet){ %>
 					<tr>
@@ -51,7 +51,7 @@
 		<form class="download" autocomplete="off" method="POST" action="<%= request.getContextPath() %>/download_xls.do">
 			<input type="hidden" name="frequency" value="<%=Frequency.Q.name()%>">
 			<section class="timeRange">
-				<span>期間設定： 
+				<span>期間設定(Select time range)： 
 				起始
 				<select class="timeRange" name="startYear">
 				<%for(int i=1947; i<=Year.now().getValue(); i++){ %>
@@ -76,7 +76,7 @@
 				</select>
 				</span>
 			</section>
-			<div class="download"><input class="download" type="submit" value="索取<%=Frequency.Q.getDescription() %>"></div>
+			<div class="download"><input class="download" type="submit" value="索取<%=Frequency.Q.getDescription() %>(Retrieve Data)"></div>
 		</form>
 	<%} %>
 	</section>

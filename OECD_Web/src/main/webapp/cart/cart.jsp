@@ -1,7 +1,26 @@
+<%@page import="tedc.oecd.entity.Index"%>
+<%@page import="java.util.Set"%>
+<%@page import="tedc.oecd.entity.Cart"%>
 <%@page import="tedc.oecd.entity.Frequency"%>
 <%@ page pageEncoding="utf-8"%>
 <%
 	String freq = request.getParameter("freq");
+	Cart cart = (Cart)session.getAttribute("cart");
+	if(freq==null&&cart!=null){
+		freq="A";
+		Set<Index> indexSet = cart.getSetByFrequency(Frequency.A);
+		if(indexSet==null||indexSet.isEmpty()){
+			indexSet = cart.getSetByFrequency(Frequency.Q);
+			if(indexSet==null||indexSet.isEmpty()){
+				indexSet = cart.getSetByFrequency(Frequency.M);
+				if(indexSet!=null&&!indexSet.isEmpty()){
+					freq="M";
+				}
+			}else{
+				freq="Q";
+			}
+		}
+	}
 %>
 <!DOCTYPE html>
 <html>
@@ -25,14 +44,20 @@
 		<aside id="left"></aside>
 		<section class="cart">
 			<ul class="orders">
-				<li value='div#annual' class='<%=(freq==null||freq.equals(Frequency.A.name()))?"target":"" %>'><div class='side'><div class='inner left'></div></div><div class='title'><span>年資料</span></div><div class='side'><div class='inner right'></div></div></li>
-				<li value='div#quarterly' class='<%=(freq!=null&&freq.equals(Frequency.Q.name()))?"target":"" %>'><div class='side'><div class='inner left'></div></div><div class='title'><span>季資料</span></div><div class='side'><div class='inner right'></div></div></li>
-				<li value='div#monthly' class='<%=(freq!=null&&freq.equals(Frequency.M.name()))?"target":"" %>'><div class='side'><div class='inner left'></div></div><div class='title'><span>月資料</span></div><div class='side'><div class='inner right'></div></div></li>
+				<li value='div#annual' class='<%=(freq==null||freq.equals(Frequency.A.name()))?"target":"" %>'><div class='side'><div class='inner left'></div></div><div class='title'><span>年資料(A)</span></div><div class='side'><div class='inner right'></div></div></li>
+				<li value='div#quarterly' class='<%=(freq!=null&&freq.equals(Frequency.Q.name()))?"target":"" %>'><div class='side'><div class='inner left'></div></div><div class='title'><span>季資料(Q)</span></div><div class='side'><div class='inner right'></div></div></li>
+				<li value='div#monthly' class='<%=(freq!=null&&freq.equals(Frequency.M.name()))?"target":"" %>'><div class='side'><div class='inner left'></div></div><div class='title'><span>月資料(M)</span></div><div class='side'><div class='inner right'></div></div></li>
 			</ul>
 			<div class='container'>
-				<jsp:include page="/subviews/annual.jsp" />
-				<jsp:include page="/subviews/quarterly.jsp" />
-				<jsp:include page="/subviews/monthly.jsp" />
+				<jsp:include page="/subviews/annual.jsp" >
+					<jsp:param name="freq" value="<%=freq %>" />
+				</jsp:include>
+				<jsp:include page="/subviews/quarterly.jsp" >
+					<jsp:param name="freq" value="<%=freq %>" />
+				</jsp:include>
+				<jsp:include page="/subviews/monthly.jsp" >
+					<jsp:param name="freq" value="<%=freq %>" />
+				</jsp:include>
 			</div>
 		</section>
 		<aside id="right"></aside>

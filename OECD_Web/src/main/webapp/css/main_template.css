@@ -86,7 +86,7 @@ li{
 	justify-content: flex-start;
 }
 #mainMenu{
-	width: 60%;
+	width: 75%;
 	min-width: 400px;
 	min-height: 40%;
 	display: flex;
@@ -100,7 +100,7 @@ li{
 	padding: 0;
 }
 #mainMenu li{
-	width: 30%;
+	width: 20%;
 	min-width: 120px;
 	height: 100%;
 	display: flex;
@@ -111,7 +111,11 @@ li{
 	border-right: 2px solid black;
 }
 #mainMenu li:first-child{
+	width: 22%;
 	border-left: 2px solid black;
+}
+#mainMenu li:last-child{
+	width: 30%;
 }
 footer{
 	background-color: #EBEBEB;
@@ -278,7 +282,7 @@ input#search{
 	cursor: pointer;
 }
 input.keyword{
-	width: 80%;
+	width: 75%;
 	height: 100%;
 	padding: 0;
 	margin-right: 2px;
@@ -297,7 +301,7 @@ ul.pages{
 	justify-content: flex-end;
 }
 ul.pages>li{
-	width: 70px;
+	width: 25px;
 	text-align: center;
 }
 ul.pages>li:nth-child(1n+3):nth-last-child(1n+3){
@@ -317,6 +321,7 @@ table.result thead{
 }
 td.slim{
 	width: 15px;
+	text-align: center;
 }
 td.quarterly{
 	background-color: rgb(224, 255, 255);
@@ -395,14 +400,14 @@ div.text{
 	justify-content: center;
 }
 section.text{
-	width: 50%;
+	width: 70%;
 	height: 90%;
 	display: flex;
 	align-items: flex-end;
 	/*justify-content: center;*/
 }
 textarea[name='name'], textarea[name='description']{
-	width: 300px;
+	width: 350px;
 	height: 100px;
 	border: 2px solid black;
 	margin-right: 10px;
@@ -421,10 +426,39 @@ div#cart{
 	align-items: center;
 	justify-content: center;
 	color: white;
+	text-align: center;
 }
-input.cart{
+p.cart{
+	margin-top: 5px;
+	margin-bottom: 5px;
+}
+div#gotoCart{
+	position: fixed;
+	top: 30vh;
+	right: 12vw;
+	width: 180px;
+	height: 60px;
+	background: blue;
+	opacity: 0.7;
+	border: 2px solid yellow;
+	color: white;
+}
+div#gotoCart a{
+	width: 100%;
+	height: 100%;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+	color: white;
+	text-align: center;
+}
+div#cart:hover, div#gotoCart:hover{
+	opacity: 1;
+}
+button.cart{
 	width: 150px;
-	height: 30px;
+	height: 50px;
 	background-color: white;
 	color: #800000;
 	border: 0;

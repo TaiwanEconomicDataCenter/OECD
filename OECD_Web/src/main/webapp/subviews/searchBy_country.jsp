@@ -27,16 +27,16 @@
 		<section class="selection">
 			<input class='selection' type='button' name='selectAll' value='全選 ( Check ALL boxes )' onclick='selectHandler(this)'>
 			<input class='selection' type='button' name='cancelAll' value='全部清除 ( Clear ALL checked )' onclick='selectHandler(this)'>
-			<p class='selection'>已選取<span class="categories"><%=categorySize %></span>個國家或組織</p>
+			<p class='selection'>已選取<span class="categories"><%=categorySize %></span>個國家或組織(<span class="categories"><%=categorySize %></span> selected)</p>
 		</section>
 		<section class="submit">
-			<input class='submit' type='submit' value='送出選取'>
+			<input class='submit' type='submit' value='送出選取Submit'>
 		</section>
 	</div>
 	<ul class="country">
 		<li>
 			<table class="result country">
-				<thead><tr><td>請勾選</td><td>國名/組織名</td></tr></thead>
+				<thead><tr><td>請勾選</td><td>國名(country)/組織名(organization)</td></tr></thead>
 				<tbody>
 				<%int count = 1;
 				for(String countryCode:countryMap.keySet()){

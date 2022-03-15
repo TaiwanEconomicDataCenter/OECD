@@ -56,18 +56,26 @@
 		session.setAttribute("indexSet", indexSet);
 	}
 	Map<String, String> orderMap = new HashMap<>();
-	orderMap.put("name", "檢索代號");
-	orderMap.put("book", "國家");
-	orderMap.put("form_e", "主題");
-	orderMap.put("desc_e", "資料敘述");
-	orderMap.put("freq", "資料頻率");
-	orderMap.put("start", "起始時間");
-	orderMap.put("last", "最新時間");
+	orderMap.put("name", "依檢索代號排序");
+	orderMap.put("book", "依國家排序");
+	orderMap.put("form_e", "依主題排序");
+	orderMap.put("desc_e", "依資料敘述排序");
+	orderMap.put("freq", "依資料頻率排序");
+	orderMap.put("start", "依起始時間排序");
+	orderMap.put("last", "依最新時間排序");
+	Map<String, String> orderEnMap = new HashMap<>();
+	orderEnMap.put("name", "Sort by name");
+	orderEnMap.put("book", "Sort by country");
+	orderEnMap.put("form_e", "Sort by topic");
+	orderEnMap.put("desc_e", "Sort by description");
+	orderEnMap.put("freq", "Sort by frequency");
+	orderEnMap.put("start", "Sort by start time");
+	orderEnMap.put("last", "Sort by last time");
 %>
 <!-- result_table.jsp start -->
 <section class="result">
 <%if(list==null || list.size()<=0){ %>
-	<p class="error">查無資料</p>
+	<p class="error">查無資料(No items found)</p>
 <%}else{%>
 	<jsp:include page="/subviews/page_list.jsp" >
 		<jsp:param name="bank" value="${param.bank }" />
@@ -83,17 +91,19 @@
 		<div class="modify">
 			<select class="modify" onchange="location=this.value;">
 				<%for(String ord:orderMap.keySet()){%>
-				<option value="<%= request.getRequestURI()+"?"+queryString.replace("orderBy="+orderBy, "orderBy="+ord).replace("page="+pageNum, "page=1")%>" <%=(ord.equals(orderBy))?"selected":"" %>>依<%=orderMap.get(ord) %>排序</option>
+				<option title="<%=orderMap.get(ord) %>" value="<%= request.getRequestURI()+"?"+queryString.replace("orderBy="+orderBy, "orderBy="+ord).replace("page="+pageNum, "page=1")%>" <%=(ord.equals(orderBy))?"selected":"" %>>
+				<%=orderEnMap.get(ord) %></option>
 				<%} %>
 		  	</select>
 		  	<select class="modify" onchange="location=this.value;">
-				<option value="<%= request.getRequestURI()+"?"+queryString.replace("&desc="+desc, "")%>" <%=(desc)?"":"selected" %>>順序排列</option>
-				<option value="<%= request.getRequestURI()+"?"+queryString.replace("desc="+desc, "desc=true")%>" <%=(desc)?"selected":"" %>>倒序排列</option>
+				<option title="順序排列" value="<%= request.getRequestURI()+"?"+queryString.replace("&desc="+desc, "")%>" <%=(desc)?"":"selected" %>>Ascending</option>
+				<option title="倒序排列" value="<%= request.getRequestURI()+"?"+queryString.replace("desc="+desc, "desc=true")%>" <%=(desc)?"selected":"" %>>Descending</option>
 		  	</select>
 			<select class="modify" onchange="location=this.value;">
 				<%int[] displayList = {5,10,20,50,100};
 				for(int d:displayList){%>
-				<option value="<%= request.getRequestURI()+"?"+queryString.replace("display="+display, "display="+d).replace("page="+pageNum, "page=1")%>" <%=(d==display)?"selected":"" %>>顯示<%=d %>個項目</option>
+				<option title="顯示<%=d %>個項目" value="<%= request.getRequestURI()+"?"+queryString.replace("display="+display, "display="+d).replace("page="+pageNum, "page=1")%>" <%=(d==display)?"selected":"" %>>
+				display by <%=d %></option>
 				<%} %>
 		  	</select>
 		</div>
@@ -102,32 +112,34 @@
 	<input type="hidden" name="bank" value="${param.bank }">
 	<input type="hidden" name="keyword" value="${param.keyword }">
 	<table class="result">
-		<thead><tr><td>請勾選</td><td>檢索代號</td><td>資料頻率</td><td>資料敘述</td></tr></thead>
+		<thead><tr><td>請勾選</td><td>檢索代號<br>(name)</td><td>資料頻率</td><td>資料敘述<br>(Description)</td></tr></thead>
 		<tbody>
 			<%for(Index index:list){ %>
 			<tr>
 				<td class="slim checkbox"><input type="checkbox" name="<%=index.getName()%>"></td>
 				<td><%=index.getName() %></td>
 				<%if(index.getTimeRange().getFreq().equals(Frequency.Q)){ %>
-				<td class="slim quarterly"><%=index.getTimeRange().getFreq().getDescription() %></td>
+				<td class="slim quarterly"><%=index.getTimeRange().getFreq().getDescription()+"("+index.getTimeRange().getFreq().name()+")" %></td>
 				<%}else if(index.getTimeRange().getFreq().equals(Frequency.M)){ %>
-				<td class="slim monthly"><%=index.getTimeRange().getFreq().getDescription() %></td>
+				<td class="slim monthly"><%=index.getTimeRange().getFreq().getDescription()+"("+index.getTimeRange().getFreq().name()+")" %></td>
 				<%}else{ %>
-				<td class="slim"><%=index.getTimeRange().getFreq().getDescription() %></td>
+				<td class="slim"><%=index.getTimeRange().getFreq().getDescription()+"("+index.getTimeRange().getFreq().name()+")" %></td>
 				<%} %>
 				<td class="desc">
 					<p><%=index.getDescription() %></p>
-					<p>國家: <%=index.getCountry() %></p>
-					<p>主題: <%=index.getSubject() %></p>
-					<p>時間範圍: <%=index.getTimeRange().getStartTimeString() %>~<%=index.getTimeRange().getEndTimeString() %></p>
-					<p>單位: <%=index.getUnit() %></p>
-					<%=(index.getReference()!=null)?"<p>基準時間: "+index.getReference()+"</p>":"" %>
+					<p>國家(Country): <%=index.getCountry() %></p>
+					<p>主題(Subject): <%=index.getSubject() %></p>
+					<p>時間範圍(Time range): <%=index.getTimeRange().getStartTimeString() %>~<%=index.getTimeRange().getEndTimeString() %></p>
+					<p>單位(Unit): <%=index.getUnit() %></p>
+					<%=(index.getReference()!=null)?"<p>基準時間(Reference): "+index.getReference()+"</p>":"" %>
 				</td>
 			</tr>
 			<%} %>
 		</tbody>
 	</table>
-	<div id="cart"><p class="cart">已放入<span class="cart"><%=(cart!=null)?cart.getTotalSize():0 %></span>筆資料</p><input class="cart" type="submit" value="放入或修改索取清單"></div>
+	<div id="cart"><p class="cart">已放入<span class="cart"><%=(cart!=null)?cart.getTotalSize():0 %></span>筆資料<br>(<span class="cart"><%=(cart!=null)?cart.getTotalSize():0 %></span> items included)</p>
+		<button class="cart" type="submit">放入或修改索取清單<br>(Add/Modify items)</button></div>
+	<div id="gotoCart"><a href="<%= request.getContextPath() %>/cart/cart.jsp">前往索取清單<br>(Go to retrieving list)</a></div>
 	</form>
 	<jsp:include page="/subviews/page_list.jsp" >
 		<jsp:param name="bank" value="${param.bank }" />
