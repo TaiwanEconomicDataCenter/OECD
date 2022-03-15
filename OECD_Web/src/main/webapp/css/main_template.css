@@ -13,8 +13,13 @@ form.refine, span.refine{
 	color: white;
 	border-radius: 5px;
 	display: flex;
+	justify-content: space-between;
+}
+span.refine{
+	width: 100%;
 }
 form.refine{
+	width: 90%;
 	margin-bottom: 10px;
 	padding: 0 5px;
 }

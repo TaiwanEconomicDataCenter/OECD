@@ -162,7 +162,7 @@ function repopulateForm(){
 						<%} %>
 					<%} %>
 					<table class="search">
-						<thead><tr><td>分類查詢<br>(Refine your search)</td></tr></thead>
+						<thead><tr><td>分類查詢<br>Refine your search</td></tr></thead>
 						<tbody>
 							<tr><td><a href="<%=request.getRequestURI() %>?bank=<%=bank %>&category=country">依國家篩選<br>(Countries)</a></td></tr>
 							<tr><td><a href="<%=request.getRequestURI() %>?bank=<%=bank %>&category=subject">依主題篩選<br>(Topics)</a></td></tr>
