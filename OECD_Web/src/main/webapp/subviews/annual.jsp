@@ -11,6 +11,7 @@
 	if(cart!=null){
 		indexSet = cart.getSetByFrequency(Frequency.A);
 	}
+	if(freq.equals("null")) freq=null;
 %>
 <!-- annual.jsp start -->
 <div id='annual' class='orders <%=(freq==null||freq.equals(Frequency.A.name()))?"target":"" %>'>
