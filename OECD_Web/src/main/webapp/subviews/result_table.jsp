@@ -83,10 +83,13 @@
 		<jsp:param name="display" value="${param.display }" />
 		<jsp:param name="count" value="<%=count %>" />
 	</jsp:include>
+	<form id="table" autocomplete="off" method="POST" action="<%= request.getContextPath() %>/add_to_cart.do" onsubmit="return submitCart(this)">
+	<input type="hidden" name="bank" value="${param.bank }">
+	<input type="hidden" name="keyword" value="${param.keyword }">
 	<div class="selection">
 		<section class="selection">
-			<input class='selection' type='button' name='selectAll' value='全選 ( Check ALL boxes )' onclick='selectHandler(this)'>
-			<input class='selection' type='button' name='cancelAll' value='全部清除 ( Clear ALL checked )' onclick='selectHandler(this)'>
+			<input class='selection items' type='button' name='selectAll' value='全選 ( Check ALL boxes )' onclick='submitCart(this)'>
+			<input class='selection items' type='button' name='cancelAll' value='全部清除 ( Clear ALL checked )' onclick='submitCart(this)'>
 		</section>
 		<div class="modify">
 			<select class="modify" onchange="location=this.value;">
@@ -108,15 +111,12 @@
 		  	</select>
 		</div>
 	</div>
-	<form autocomplete="off" method="POST" action="<%= request.getContextPath() %>/add_to_cart.do">
-	<input type="hidden" name="bank" value="${param.bank }">
-	<input type="hidden" name="keyword" value="${param.keyword }">
 	<table class="result">
 		<thead><tr><td>請勾選</td><td>檢索代號<br>(name)</td><td>資料頻率</td><td>資料敘述<br>(Description)</td></tr></thead>
 		<tbody>
 			<%for(Index index:list){ %>
 			<tr>
-				<td class="slim checkbox"><input type="checkbox" name="<%=index.getName()%>"></td>
+				<td class="slim checkbox"><input type="checkbox" name="<%=index.getName()%>" onchange='submitCart(this)'></td>
 				<td><%=index.getName() %></td>
 				<%if(index.getTimeRange().getFreq().equals(Frequency.Q)){ %>
 				<td class="slim quarterly"><%=index.getTimeRange().getFreq().getDescription()+"("+index.getTimeRange().getFreq().name()+")" %></td>
@@ -137,9 +137,8 @@
 			<%} %>
 		</tbody>
 	</table>
-	<div id="cart"><p class="cart">已放入<span class="cart"><%=(cart!=null)?cart.getTotalSize():0 %></span>筆資料<br>(<span class="cart"><%=(cart!=null)?cart.getTotalSize():0 %></span> items included)</p>
-		<button class="cart" type="submit">放入或修改索取清單<br>(Add/Modify items)</button></div>
-	<div id="gotoCart"><a href="<%= request.getContextPath() %>/cart/cart.jsp">前往索取清單<br>(Go to retrieving list)</a></div>
+	<div id="gotoCart"><p class="cart">已放入<span class="cart"><%=(cart!=null)?cart.getTotalSize():0 %></span>筆資料<br>(<span class="cart"><%=(cart!=null)?cart.getTotalSize():0 %></span> items included)</p>
+	<a href="<%= request.getContextPath() %>/cart/cart.jsp"><span class="zh">前往索取清單</span><span>(Go to retrieving list)</span></a></div>
 	</form>
 	<jsp:include page="/subviews/page_list.jsp" >
 		<jsp:param name="bank" value="${param.bank }" />

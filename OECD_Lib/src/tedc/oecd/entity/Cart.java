@@ -9,6 +9,7 @@ import tedc.oecd.exception.TEDCException;
 
 public class Cart {
 	private Map<Frequency, Set<Index>> cartMap = new HashMap<>();
+	public static final int maxTotalSize = 200;
 
 	public int size() {
 		return cartMap.size();
@@ -75,6 +76,20 @@ public class Cart {
 
 	public Set<Frequency> keySet() {
 		return new HashSet<>(cartMap.keySet());
+	}
+	
+	public boolean contains(Index index) {
+		if(index==null) throw new IllegalArgumentException("索引不得為null!");
+		if(index.getTimeRange()==null) throw new IllegalArgumentException("索引時間範圍不得為null!");
+		Frequency freq = index.getTimeRange().getFreq();
+		if(freq==null) throw new IllegalArgumentException("頻率不得為null!");
+		
+		Set<Index> set = cartMap.get(freq);
+		if(set!=null) {
+			return set.contains(index);
+		}else {
+			return false;
+		}
 	}
 
 	@Override

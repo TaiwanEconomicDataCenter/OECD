@@ -8,6 +8,7 @@ h1.title{font-size: 1.8em;}
 h1{margin: 5px 0;color: blue;}
 h2{color: #800000;}
 p.error{text-align: center;}
+p.limit{color: red;}
 form.refine, span.refine{
 	background-color: blue;
 	color: white;
@@ -417,13 +418,14 @@ textarea[name='name'], textarea[name='description']{
 	border: 2px solid black;
 	margin-right: 10px;
 }
-div#cart{
+
+div#gotoCart{
 	position: fixed;
 	top: 15vh;
 	right: 12vw;
 	width: 180px;
-	height: 120px;
-	background: #800000;
+	height: 150px;
+	background: blue;
 	opacity: 0.7;
 	border: 2px solid yellow;
 	display: flex;
@@ -437,26 +439,21 @@ p.cart{
 	margin-top: 5px;
 	margin-bottom: 5px;
 }
-div#gotoCart{
-	position: fixed;
-	top: 30vh;
-	right: 12vw;
-	width: 180px;
-	height: 60px;
-	background: blue;
-	opacity: 0.7;
-	border: 2px solid yellow;
-	color: white;
-}
 div#gotoCart a{
-	width: 100%;
-	height: 100%;
+	width: 90%;
+	height: 80px;
 	display: flex;
 	flex-direction: column;
 	align-items: center;
 	justify-content: center;
-	color: white;
+	color: blue;
+	font-weight: bold;
+	border-radius: 10px;
 	text-align: center;
+	background-color: white;
+}
+div#gotoCart a span.zh{
+	font-size: 1.4em;
 }
 div#cart:hover, div#gotoCart:hover{
 	opacity: 1;

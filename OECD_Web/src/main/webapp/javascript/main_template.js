@@ -52,10 +52,17 @@ function selectHandler(e){
 	}
 	$("span.categories").html(final_quantity);
 }
+var selected_target = new Array();
 function select(){
+	if(!$(this).prop('checked')){
+		selected_target.push(this);
+	}
 	$(this).prop('checked',true);
 }
 function cancel(){
+	if($(this).prop('checked')){
+		selected_target.push(this);
+	}
 	$(this).prop('checked',false);
 }
 function selectCount(){

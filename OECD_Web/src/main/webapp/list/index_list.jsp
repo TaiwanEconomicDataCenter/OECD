@@ -9,6 +9,17 @@
 <%@page import="java.util.List"%>
 <%@ page pageEncoding="utf-8"%>
 <%
+	String errorMessage = null;
+	List<String> errors = ((List<String>)session.getAttribute("error_message"));
+	String isError = request.getParameter("error");
+	//System.out.println("isError: "+isError);
+	if(isError==null){
+		session.removeAttribute("error_message");
+	}else{
+		System.out.println("errors: "+errors);
+	}
+%>
+<%
 	String bank = request.getParameter("bank");
 	String storedbank = (String)session.getAttribute("bank");
 	if(storedbank==null) session.setAttribute("bank", bank);
@@ -46,6 +57,7 @@
 $(document).ready(init);
 function init(){
 	repopulateForm();
+	$("input.items").click(selectItemsHandler);
 }
 function repopulateForm(){
 	$("input.keyword").val('${sessionScope.keyword }');
@@ -90,6 +102,54 @@ function repopulateForm(){
 		}
 	}%>
 }
+function selectItemsHandler(e){
+	if($(e).attr('name')=="selectAll"){
+		$("input[type='checkbox']").each(select);
+	}else if($(e).attr('name')=="cancelAll"){
+		$("input[type='checkbox']").each(cancel);
+	}
+	//submitCart(e);
+}
+function submitCart(e){
+	if($(e).attr('name')=="selectAll" || $(e).attr('name')=="cancelAll"){
+		selectItemsHandler(e);
+	}else selected_target = new Array(e);
+	//alert($("form#table").serialize());
+	
+	if(!e.submited){
+		$.ajax({ //xhr == jqXHR
+			url: $("form#table").attr('action')+"?ajax=ajax",
+			method: 'POST',
+			data:$("form#table").serialize()//+"&ajax="
+		}).done(submitCartDoneHandler);
+		
+		return false; //false: 取消原來同步的submit功能, true: 還原同步請求
+	}
+}
+var isError = false;
+function submitCartDoneHandler(data, status, xhr){
+	if(data.errors.length>0) alert(data.errors);
+	//alert(data.size);
+	if(data.size.length>0) $("span.cart").text(data.size);
+	
+	//alert(data.errors.length);
+	if(data.errors.length>0) {
+		isError = true;
+		$("p.error").html(data.errors.substring(1,data.errors.length-1));
+	}else{
+		$("p.error").text("");
+	}
+	//alert(isError);
+	if(isError){
+		//alert(selected_target.length);
+		for(var i=0;i<selected_target.length;i++){
+			$(selected_target[i]).prop('checked',false);
+		}
+		isError = false;
+	}
+	selected_target = new Array();
+	
+}
 </script>
 </head>
 <body>
@@ -106,6 +166,8 @@ function repopulateForm(){
 		</div>
 		<p>資料出處： 經濟合作暨發展組織</p>
 		<p>Source: Organization for Economic Cooperation and Development (OECD)</p>
+		<%= (errorMessage!=null)?errorMessage:"" %>
+		<%  session.removeAttribute("error_message");%>
 	</nav>
 	<main>
 		<aside id="left"></aside>
