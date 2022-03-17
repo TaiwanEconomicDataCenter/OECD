@@ -66,7 +66,7 @@
 				</select>
 				</span>
 			</section>
-			<div class="download"><input class="download" type="submit" value="索取<%=Frequency.A.getDescription() %>(Retrieve Data)"></div>
+			<div class="download"><input formtarget="_blank" class="download" type="submit" value="索取<%=Frequency.A.getDescription() %>(Retrieve Data)"></div>
 		</form>
 	<%} %>
 	</section>

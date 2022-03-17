@@ -47,7 +47,7 @@
 		</li>
 		<li>
 			<table class="result country">
-				<thead><tr><td>請勾選</td><td>國名/組織名</td></tr></thead>
+				<thead><tr><td>請勾選</td><td>國名(country)/組織名(organization)</td></tr></thead>
 				<tbody>
 					<%} %>
 					<tr>

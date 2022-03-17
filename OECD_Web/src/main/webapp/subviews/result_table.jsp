@@ -92,23 +92,32 @@
 			<input class='selection items' type='button' name='cancelAll' value='全部清除 ( Clear ALL checked )' onclick='submitCart(this)'>
 		</section>
 		<div class="modify">
-			<select class="modify" onchange="location=this.value;">
-				<%for(String ord:orderMap.keySet()){%>
-				<option title="<%=orderMap.get(ord) %>" value="<%= request.getRequestURI()+"?"+queryString.replace("orderBy="+orderBy, "orderBy="+ord).replace("page="+pageNum, "page=1")%>" <%=(ord.equals(orderBy))?"selected":"" %>>
-				<%=orderEnMap.get(ord) %></option>
-				<%} %>
-		  	</select>
-		  	<select class="modify" onchange="location=this.value;">
-				<option title="順序排列" value="<%= request.getRequestURI()+"?"+queryString.replace("&desc="+desc, "")%>" <%=(desc)?"":"selected" %>>Ascending</option>
-				<option title="倒序排列" value="<%= request.getRequestURI()+"?"+queryString.replace("desc="+desc, "desc=true")%>" <%=(desc)?"selected":"" %>>Descending</option>
-		  	</select>
-			<select class="modify" onchange="location=this.value;">
-				<%int[] displayList = {5,10,20,50,100};
-				for(int d:displayList){%>
-				<option title="顯示<%=d %>個項目" value="<%= request.getRequestURI()+"?"+queryString.replace("display="+display, "display="+d).replace("page="+pageNum, "page=1")%>" <%=(d==display)?"selected":"" %>>
-				display by <%=d %></option>
-				<%} %>
-		  	</select>
+			<section class="modify">
+				<p>排序基準</p>
+				<select class="modify" onchange="location=this.value;">
+					<%for(String ord:orderMap.keySet()){%>
+					<option title="<%=orderMap.get(ord) %>" value="<%= request.getRequestURI()+"?"+queryString.replace("orderBy="+orderBy, "orderBy="+ord).replace("page="+pageNum, "page=1")%>" <%=(ord.equals(orderBy))?"selected":"" %>>
+					<%=orderEnMap.get(ord) %></option>
+					<%} %>
+			  	</select>
+			</section>
+			<section class="modify">
+				<p>順序/倒序</p>
+			  	<select class="modify" onchange="location=this.value;">
+					<option title="順序排列" value="<%= request.getRequestURI()+"?"+queryString.replace("&desc="+desc, "")%>" <%=(desc)?"":"selected" %>>Ascending</option>
+					<option title="倒序排列" value="<%= request.getRequestURI()+"?"+queryString.replace("desc="+desc, "desc=true")%>" <%=(desc)?"selected":"" %>>Descending</option>
+			  	</select>
+			</section>
+			<section class="modify">  
+				<p>顯示數量</p>
+				<select class="modify" onchange="location=this.value;">
+					<%int[] displayList = {5,10,20,50,100};
+					for(int d:displayList){%>
+					<option title="顯示<%=d %>個項目" value="<%= request.getRequestURI()+"?"+queryString.replace("display="+display, "display="+d).replace("page="+pageNum, "page=1")%>" <%=(d==display)?"selected":"" %>>
+					display by <%=d %></option>
+					<%} %>
+			  	</select>
+			 </section>
 		</div>
 	</div>
 	<table class="result">
