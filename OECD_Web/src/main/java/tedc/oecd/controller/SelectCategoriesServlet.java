@@ -47,26 +47,26 @@ public class SelectCategoriesServlet extends HttpServlet {
 		String category = (String)request.getParameter("category");
 		if(bank==null || bank.length()<=0) {
 			System.err.println("找不到名稱為"+bank+"的bank!");
-			response.sendRedirect(request.getContextPath()+"/list/index_list.jsp?bank="+bank+(keyword.length()>0?"&keyword="+keyword:""));
+			response.sendRedirect(request.getContextPath()+"/search/index_list?bank="+bank+(keyword.length()>0?"&keyword="+keyword:""));
 			return;
 		}
 		if(delete!=null) {
 			if(categoryMap==null) {
 				System.err.println("不存在categoryMap!");
-				response.sendRedirect(request.getContextPath()+"/list/index_list.jsp?bank="+bank+(keyword.length()>0?"&keyword="+keyword:""));
+				response.sendRedirect(request.getContextPath()+"/search/index_list?bank="+bank+(keyword.length()>0?"&keyword="+keyword:""));
 				return;
 			}else if(!Category.checkCategory(delete)) {
 				System.err.println("找不到名稱為"+delete+"的category!");
-				response.sendRedirect(request.getContextPath()+"/list/index_list.jsp?bank="+bank+(keyword.length()>0?"&keyword="+keyword:""));
+				response.sendRedirect(request.getContextPath()+"/search/index_list?bank="+bank+(keyword.length()>0?"&keyword="+keyword:""));
 				return;
 			}
 			categoryMap.remove(Category.valueOf(delete));
-			response.sendRedirect(request.getContextPath()+"/list/index_list.jsp?bank="+bank+(keyword.length()>0?"&keyword="+keyword:""));
+			response.sendRedirect(request.getContextPath()+"/search/index_list?bank="+bank+(keyword.length()>0?"&keyword="+keyword:""));
 			return;
 		}
 		if(category==null || !Category.checkCategory(category)) {
 			System.err.println("找不到名稱為"+category+"的category!");
-			response.sendRedirect(request.getContextPath()+"/list/index_list.jsp?bank="+bank+(keyword.length()>0?"&keyword="+keyword:""));
+			response.sendRedirect(request.getContextPath()+"/search/index_list?bank="+bank+(keyword.length()>0?"&keyword="+keyword:""));
 			return;
 		}
 		
@@ -132,7 +132,7 @@ public class SelectCategoriesServlet extends HttpServlet {
 			
 			session.setAttribute("categoryMap", categoryMap);
 			//System.out.println(categoryMap);
-			response.sendRedirect(request.getContextPath()+"/list/index_list.jsp?bank="+bank+(keyword.length()>0?"&keyword="+keyword:""));
+			response.sendRedirect(request.getContextPath()+"/search/index_list?bank="+bank+(keyword.length()>0?"&keyword="+keyword:""));
 			return;
 		} catch (TEDCException e) {
 			this.log("依分類查詢失敗", e);
@@ -140,7 +140,7 @@ public class SelectCategoriesServlet extends HttpServlet {
 			this.log("依分類查詢失敗，發生非預期錯誤", e);
 		}
 		
-		response.sendRedirect(request.getContextPath()+"/list/index_list.jsp?bank="+bank+(keyword.length()>0?"&keyword="+keyword:""));
+		response.sendRedirect(request.getContextPath()+"/search/index_list?bank="+bank+(keyword.length()>0?"&keyword="+keyword:""));
 	}
 
 }
