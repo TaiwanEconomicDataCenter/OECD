@@ -42,7 +42,7 @@ public class UpdateCartServlet extends HttpServlet {
 				String deleteAll = request.getParameter("deleteAll");
 				if(deleteAll!=null) {
 					cart.remove(freq);
-					response.sendRedirect(request.getContextPath()+"/cart/cart.jsp?freq="+frequency);
+					response.sendRedirect(request.getContextPath()+"/cart/retrieving_list?freq="+frequency);
 					
 					return;
 				}else {
@@ -52,13 +52,13 @@ public class UpdateCartServlet extends HttpServlet {
 							cart.remove(index);
 						}
 					}
-					response.sendRedirect(request.getContextPath()+"/cart/cart.jsp?freq="+frequency);
+					response.sendRedirect(request.getContextPath()+"/cart/retrieving_list?freq="+frequency);
 					
 					return;
 				}
 			}
 		}
-		response.sendRedirect(request.getContextPath()+"/cart/cart.jsp");
+		response.sendRedirect(request.getContextPath()+"/cart/retrieving_list");
 	}
 
 }

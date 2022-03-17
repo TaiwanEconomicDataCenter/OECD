@@ -147,7 +147,7 @@
 		</tbody>
 	</table>
 	<div id="gotoCart"><p class="cart">已放入<span class="cart"><%=(cart!=null)?cart.getTotalSize():0 %></span>筆資料<br>(<span class="cart"><%=(cart!=null)?cart.getTotalSize():0 %></span> items included)</p>
-	<a href="<%= request.getContextPath() %>/cart/cart.jsp"><span class="zh">前往索取清單</span><span>(Go to retrieving list)</span></a></div>
+	<a href="<%= request.getContextPath() %>/cart/retrieving_list"><span class="zh">前往索取清單</span><span>(Go to retrieving list)</span></a></div>
 	</form>
 	<jsp:include page="/subviews/page_list.jsp" >
 		<jsp:param name="bank" value="${param.bank }" />

@@ -9,6 +9,22 @@
     <welcome-file>default.htm</welcome-file>
     <welcome-file>default.jsp</welcome-file>
   </welcome-file-list>
+  <servlet>
+  	<servlet-name>ListJSP</servlet-name>
+  	<jsp-file>/list/index_list.jsp</jsp-file>
+  </servlet>
+  <servlet-mapping>
+  	<servlet-name>ListJSP</servlet-name>
+  	<url-pattern>/search/index_list</url-pattern>
+  </servlet-mapping>
+  <servlet>
+  	<servlet-name>CartJSP</servlet-name>
+  	<jsp-file>/cart/cart.jsp</jsp-file>
+  </servlet>
+  <servlet-mapping>
+  	<servlet-name>CartJSP</servlet-name>
+  	<url-pattern>/cart/retrieving_list</url-pattern>
+  </servlet-mapping>
   <error-page>
   	<error-code>404</error-code>
 	<location>/WEB-INF/error_pages/404.jsp</location>
