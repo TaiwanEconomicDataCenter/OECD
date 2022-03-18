@@ -14,7 +14,7 @@ import javax.servlet.http.HttpServletRequest;
 /**
  * Servlet Filter implementation class PerformanceFilter
  */
-@WebFilter({"*.do", "*.jsp"})
+@WebFilter({"*.do", "*.jsp","/list/*","/search/*","/cart/*"})
 public class PerformanceFilter implements Filter {
 
     /**

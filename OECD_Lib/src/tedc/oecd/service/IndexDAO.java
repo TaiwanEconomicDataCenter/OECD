@@ -74,7 +74,7 @@ class IndexDAO {
 			}
 			pstmt.setInt(input+1, (page-1)*limit);
 			pstmt.setInt(input+2, limit);
-			System.out.println(pstmt.toString());
+			//System.out.println(pstmt.toString());
 			try(
 					ResultSet rs = pstmt.executeQuery(); //4.執行指令	
 			){
@@ -168,7 +168,7 @@ class IndexDAO {
 			for(Integer p:catMap.keySet()) {
 				pstmt.setString(p, catMap.get(p));
 			}
-			System.out.println(pstmt.toString());
+			//System.out.println(pstmt.toString());
 			try(
 					ResultSet rs = pstmt.executeQuery(); //4.執行指令	
 			){
