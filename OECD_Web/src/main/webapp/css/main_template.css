@@ -93,7 +93,7 @@ li{
 }
 #mainMenu{
 	width: 75%;
-	min-width: 1000px;
+	min-width: 850px;
 	min-height: 40%;
 	display: flex;
 	flex-direction: row;
@@ -101,12 +101,13 @@ li{
 	justify-content: flex-start;
 	padding: 10px 0;
 	margin-left: 5px;
+	font-size: 0.8em;
 }
 #mainMenu.scrollDown{
 	padding: 0;
 }
 #mainMenu li{
-	width: 20%;
+	width: 12%;
 	min-width: 120px;
 	height: 100%;
 	display: flex;
@@ -220,10 +221,10 @@ div.link ul li{
 	border-radius: 20px;
 }
 div.link ul li.qnia{
-	background: red;
+	background: #ff4d4d;
 }
 div.link ul li.mei{
-	background: blue;
+	background: #4d4dff;
 }
 div.link ul li a{
 	width: 100%;
