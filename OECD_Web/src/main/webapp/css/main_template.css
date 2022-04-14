@@ -64,7 +64,7 @@ li{
 }
 #home{
 	width: 30vw;
-	min-width: 400px;
+	min-width: 380px;
 	margin: 0;
 	display: flex;
 	flex-direction: row;
@@ -73,7 +73,8 @@ li{
 	padding-left: 10px;
 }
 #logo{
-	width: 80%;
+	width: 90%;
+	max-width: 400px;
 	min-height: 60%;
 	display: flex;
 	flex-direction: row;
@@ -92,8 +93,8 @@ li{
 	justify-content: flex-start;
 }
 #mainMenu{
-	width: 75%;
-	min-width: 850px;
+	width: 60%;
+	min-width: 700px;
 	min-height: 40%;
 	display: flex;
 	flex-direction: row;
@@ -118,11 +119,11 @@ li{
 	border-right: 2px solid black;
 }
 #mainMenu li:first-child{
-	width: 22%;
+	width: 30%;
 	border-left: 2px solid black;
 }
 #mainMenu li:last-child{
-	width: 30%;
+	width: 40%;
 }
 footer{
 	background-color: #EBEBEB;
@@ -221,10 +222,10 @@ div.link ul li{
 	border-radius: 20px;
 }
 div.link ul li.qnia{
-	background: #ff4d4d;
+	background: #e6005c;
 }
 div.link ul li.mei{
-	background: #4d4dff;
+	background: #005ce6;
 }
 div.link ul li a{
 	width: 100%;
@@ -445,7 +446,7 @@ textarea[name='name'], textarea[name='description']{
 
 div#gotoCart{
 	position: fixed;
-	top: 15vh;
+	top: 13vh;
 	right: 12vw;
 	width: 180px;
 	height: 150px;
