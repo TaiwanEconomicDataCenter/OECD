@@ -31,8 +31,8 @@
 				<%=LocalDate.now().getYear() %>年
 				<%=LocalDate.now().getMonthValue() %>月
 				<%=LocalDate.now().getDayOfMonth() %>日
-				<%=LocalDate.now().getDayOfWeek().getDisplayName(TextStyle.FULL, Locale.getDefault()) %>
-				<%=LocalTime.now().format(DateTimeFormatter.ofLocalizedTime(FormatStyle.SHORT).withLocale(Locale.getDefault())) %>
+				<%=LocalDate.now().getDayOfWeek().getDisplayName(TextStyle.FULL, Locale.TAIWAN) %>
+				<%=LocalTime.now().format(DateTimeFormatter.ofLocalizedTime(FormatStyle.SHORT).withLocale(Locale.TAIWAN)) %>
 				</div>
 			</nav>
 			<div class="main">
