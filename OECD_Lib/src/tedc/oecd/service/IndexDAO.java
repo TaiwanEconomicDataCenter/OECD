@@ -215,7 +215,7 @@ class IndexDAO {
 		//String[] keywordOrList = keyword.split("\\*");
 		boolean hasCategory = false;
 		for(Category cat:categoryMap.keySet()) {
-			if(!categoryMap.get(cat).isEmpty()) {
+			if(categoryMap.get(cat)!=null && !categoryMap.get(cat).isEmpty()) {
 				whereClause += (hasCategory?") AND ( ":"");
 				hasCategory = true;
 				for(int i=0; i<categoryMap.get(cat).size(); i++) {

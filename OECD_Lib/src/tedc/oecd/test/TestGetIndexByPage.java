@@ -43,7 +43,7 @@ public class TestGetIndexByPage {
 			Logger.getLogger("以頁數查詢索引").log(Level.SEVERE, e.getMessage(), e);
 			System.out.println("以頁數查詢索引發生錯誤: "+e.getMessage()); //for user(呈現在網頁上)
 		} catch (Exception e) {
-			Logger.getLogger("以頁數查詢索引").log(Level.SEVERE, "粉絲資料修改發生錯誤: "+e.getMessage(), e);
+			Logger.getLogger("以頁數查詢索引").log(Level.SEVERE, "以頁數查詢索引: "+e.getMessage(), e);
 			System.out.println("以頁數查詢索引發生錯誤: "+e.getMessage()); //for user(呈現在網頁上)
 		}
 		
