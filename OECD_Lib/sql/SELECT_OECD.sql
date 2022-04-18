@@ -1,3 +1,5 @@
+SELECT @@sql_mode;
+
 USE qnia;
 CREATE view qnia_info AS
 SELECT databank, name, db_table, db_code, desc_e, desc_c, freq, start, last, unit, name_ord, snl, book, form_e, form_c 
@@ -13,6 +15,7 @@ SELECT * FROM qnia_info ORDER BY desc_e LIMIT 0, 20;
 SELECT * FROM qnia_info ORDER BY freq LIMIT 0, 20;
 SELECT count(*) AS size FROM qnia_info;
 SELECT book AS country, name_ord AS countryCode FROM qnia_info GROUP BY country;
+SELECT book AS country FROM qnia_info GROUP BY country;
 SELECT form_e AS subject FROM qnia_info GROUP BY form_e;
 SELECT freq AS frequency FROM qnia_info GROUP BY freq;
 
@@ -30,6 +33,7 @@ FROM mei_key;
 SELECT * FROM mei_info LIMIT 20, 20;
 SELECT count(*) AS size FROM mei_info;
 SELECT book AS country, name_ord AS countryCode FROM mei_info GROUP BY country;
+SELECT book AS country FROM mei_info GROUP BY country;
 SELECT form_e AS subject FROM mei_info GROUP BY form_e;
 SELECT freq AS frequency FROM mei_info GROUP BY freq;
 
